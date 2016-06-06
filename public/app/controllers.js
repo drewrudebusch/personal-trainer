@@ -1,6 +1,6 @@
 angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
 .controller('HomeCtrl', ['$scope', 'Recipe', function($scope, Recipe) {
-  
+
 }])
 .controller('ShowCtrl', ['$scope', '$stateParams', 'Recipe', function($scope, $stateParams, Recipe) {
   $scope.recipe = {};
@@ -30,6 +30,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
 .controller('AuthCtrl', ['$scope', '$http', '$location', 'Auth',
                 function($scope, $http, $location, Auth) {
   $scope.user = {
+    name: '',
     email: '',
     password: ''
   };
@@ -56,7 +57,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
     console.log('$scope.user', $scope.user);
     $http.post('/api/auth', $scope.user).then(function success(res) {
       Auth.saveToken(res.data.token);
-      $location.path('/');
+      $location.path('/home');
     }, function error(res) {
       console.log(data);
     });

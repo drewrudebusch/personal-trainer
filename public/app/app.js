@@ -13,30 +13,20 @@ app.config([
   $urlRouterProvider.otherwise('/404');
 
   $stateProvider
-  .state('home', {
+  .state('signin', {
     url: '/',
+    templateUrl: 'app/views/signin.html',
+    controller: 'AuthCtrl'
+  })
+  .state('home', {
+    url: '/home',
     templateUrl: 'app/views/home.html',
     controller: 'HomeCtrl'
-  })
-  .state('newRecipe', {
-    url: '/recipes/new',
-    templateUrl: 'app/views/newRecipe.html',
-    controller: 'NewCtrl'
   })
   .state('recipeShow', {
     url: '/recipes/:id',
     templateUrl: 'app/views/showRecipe.html',
     controller: 'ShowCtrl'
-  })
-  .state('signup', {
-    url: '/signup',
-    templateUrl: 'app/views/userSignup.html',
-    controller: 'AuthCtrl'
-  })
-  .state('login', {
-    url: '/login',
-    templateUrl: 'app/views/userLogin.html',
-    controller: 'AuthCtrl'
   })
   .state('404', {
     url: '/404',

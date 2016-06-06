@@ -17,13 +17,31 @@
   text-align: center;
   background-color: #F8F8F8;
   border-radius: 3px;
-  height: 40vh;
-  top: 30vh;
+  height: 45vh;
+  top: 27.5vh;
   display:block;
   cursor:pointer;
   z-index:3;
   position:fixed;
   opacity: .85
+}
+
+#welcome li {
+  width: 50%;
+}
+#username {
+  padding: 15px 5px;
+  font-weight: bold;
+}
+
+
+
+.tabbed-login {
+  margin-top: 5vh;
+}
+
+.tab-pane {
+  margin-top: 10px;
 }
 
 
