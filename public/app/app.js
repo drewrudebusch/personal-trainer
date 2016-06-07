@@ -33,6 +33,11 @@ app.config([
     templateUrl: 'app/views/editProfile.html',
     controller: 'ProfileCtrl'
   })
+  .state('changePassword', {
+    url: '/profile/change-password',
+    templateUrl: 'app/views/changePassword.html',
+    controller: 'AuthCtrl'
+  })
   .state('recipeShow', {
     url: '/recipes/:id',
     templateUrl: 'app/views/showRecipe.html',
