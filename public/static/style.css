@@ -36,6 +36,22 @@ body {
 #welcome {
   opacity: .85
 }
+#createExercise {
+  margin-top: 12vh;
+}
+#createExercise .form-group {
+  margin: 0;
+  margin-bottom: 5px;
+}
+#createExercise label {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+#createExercise .btn {
+  margin: 0;
+  margin-bottom: 5px;
+}
 @media (min-width: 550px) {
   #editProfileForm .inputField {
     width: 550px;

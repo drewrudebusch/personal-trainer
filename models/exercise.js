@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
 
 var ExerciseSchema = new mongoose.Schema({
-  title: String,
+  name: String,
   description: String,
   images: [],
-  video: String
+  video: String,
+  muscleGroups: []
 });
 
 module.exports = mongoose.model('Exercise', ExerciseSchema);

@@ -38,10 +38,20 @@ app.config([
     templateUrl: 'app/views/changePassword.html',
     controller: 'AuthCtrl'
   })
-  .state('recipeShow', {
-    url: '/recipes/:id',
-    templateUrl: 'app/views/showRecipe.html',
-    controller: 'ShowCtrl'
+  .state('exerciseNew', {
+    url: '/exercises/new',
+    templateUrl: 'app/views/newExercise.html',
+    controller: 'ExerciseNewCtrl'
+  })
+  .state('exercises', {
+    url: '/exercises',
+    templateUrl: 'app/views/exercises.html',
+    controller: 'ExercisesCtrl'
+  })
+  .state('exerciseShow', {
+    url: '/exercises/:id',
+    templateUrl: 'app/views/showExercise.html',
+    controller: 'ExerciseShowCtrl'
   })
   .state('404', {
     url: '/404',

@@ -1,18 +1,42 @@
-<h1>New Exercise</h1>
+<div id="createExercise" class="well">
+  <h1 style="margin: 0;">New Exercise</h1>
+  <form ng-submit="createExercise()">
+    <div class="form-group">
+      <label for="title">Name</label>
+      <input type="text" class="form-control" id="newExerciseName" ng-model="exercise.name">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="newExerciseDescription" ng-model="exercise.description"></textarea>
+    </div>
+    <div class="form-group" ng-repeat="image in exercise.images">
+      <label for="image" ng-show="showImageLabel(image)">Images</label>
+      <button class="btn btn-xs btn-success editProfileInline" ng-show="$first" ng-click="addNewImage()">
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+      <div>
+        <input type="url"  style="width: 85%;" class="form-control editProfileInline" ng-model="image.link" name="" placeholder="Enter an image url">
+        <button class="btn btn-sm btn-danger editProfileInline" ng-hide="exercise.images.length === 1" ng-click="removeNewImage(image)">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <!-- <button class="btn btn-xs btn-success editProfileInline" ng-show="showAddImage(image)" ng-click="addNewImage()">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button> -->
+    <!--   </div> -->
+      </div>
+    </div>
 
-<form ng-submit="createRecipe()">
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" ng-model="recipe.title">
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <textarea class="form-control" id="description" ng-model="recipe.description"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="image">Image Link</label>
-    <input type="url" class="form-control" id="image" placeholder="" ng-model="recipe.image">
-  </div>
+  <!--   <div class="form-group">
+      <label for="image">Image Link</label>
+      <input type="url" class="form-control" id="newExerciseImage" placeholder="" ng-model="exercise.image">
+    </div> -->
 
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+
+    <div class="form-group">
+      <label for="image">Video Link</label>
+      <input type="url" class="form-control" id="newExerciseVideo" placeholder="" ng-model="exercise.video">
+    </div>
+
+    <button type="submit" class="btn btn-primary"> Create Exercise </button>
+  </form>
+</div>
