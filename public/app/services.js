@@ -1,7 +1,7 @@
 angular.module('PersonalTrainerServices', ['ngResource'])
-.factory('Recipe', ['$resource', function($resource) {
-  return $resource('/api/recipes/:id');
-}])
+// .factory('Recipe', ['$resource', function($resource) {
+//   return $resource('/api/recipes/:id');
+// }])
 
 .factory('User', ['$resource', function($resource) {
   return $resource('/api/users/:id', { id: '@_id' }, {

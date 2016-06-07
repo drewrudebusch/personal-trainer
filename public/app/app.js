@@ -23,6 +23,16 @@ app.config([
     templateUrl: 'app/views/home.html',
     controller: 'HomeCtrl'
   })
+  .state('profile', {
+    url: '/profile',
+    templateUrl: 'app/views/profile.html',
+    controller: 'ProfileCtrl'
+  })
+  .state('profileEdit', {
+    url: '/profile/edit',
+    templateUrl: 'app/views/editProfile.html',
+    controller: 'ProfileCtrl'
+  })
   .state('recipeShow', {
     url: '/recipes/:id',
     templateUrl: 'app/views/showRecipe.html',

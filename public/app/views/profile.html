@@ -1,0 +1,56 @@
+
+<div class="container-fluid">
+  <h1> {{ currentUserFirstName }}'s Profile </h1>
+  <div class="well">
+    <div class="form-group">
+      <strong>Name: </strong> {{ profile.name }}
+    </div>
+    <div class="form-group">
+      <strong>Email: </strong> {{ profile.email }}
+    </div>
+    <!-- "gender": data.gender,
+    "height": data.height,
+    "weight": data.weight -->
+    <div ng-hide="if ( profile.gender )">
+      <div class="form-group">
+        <strong>Gender: </strong> Not Set
+      </div>
+      <div class="form-group">
+        <strong>Height: </strong> Not Set
+      </div>
+      <div class="form-group">
+        <strong>Weight: </strong> Not Set
+      </div>
+    </div>
+    <div ng-show="if ( profile.gender )">
+      <div class="form-group">
+        <strong>Gender: </strong> {{ profile.gender }}
+      </div>
+      <div class="form-group">
+        <strong>Height: </strong> {{ profile.gender }}
+      </div>
+      <div class="form-group">
+        <strong>Height: </strong> {{ profile.gender }}
+      </div>
+    </div>
+      <!-- <p class="help-block">Example block-level help text here.</p> -->
+  </div>
+  <div class="well">
+    <div class="form-group">
+      <strong>Primary Gym: </strong> Rain City Fit
+    </div>
+    <div class="form-group">
+      <strong>Primary Trainer: </strong> Ben K.
+    </div>
+    <div class="form-group">
+      <strong>Email </strong> benk@raincityfit.com
+    </div>
+    <div class="form-group">
+      <strong>Phone </strong> (555) 555-1234
+    </div>
+  </div>
+  <div class="well">
+    <a href="/profile/edit" class="btn btn-primary profile-button"> Edit Profile </button>
+    <a href="#" class="btn btn-success profile-button"> Reset Password </button>
+  </div>
+</div>

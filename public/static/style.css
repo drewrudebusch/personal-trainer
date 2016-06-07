@@ -12,7 +12,11 @@
 .hero-image {
   padding: 0;
 }
-
+.profile-button {
+  width: 47%;
+  margin-right: 2px;
+  margin-left: 2px;
+}
 #welcome {
   text-align: center;
   background-color: #F8F8F8;
@@ -30,7 +34,7 @@
   width: 50%;
 }
 #username {
-  padding: 15px 5px;
+  padding: 15px;
   font-weight: bold;
 }
 

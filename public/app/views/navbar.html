@@ -1,27 +1,35 @@
-<nav class="navbar navbar-default navbar-fixed-top"
-      role="navigation"
-      ng-controller="AuthCtrl"
-      ng-show="location !== '/'"> 
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="container-fluid">
-    <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="/"> <strong> Personal Trainer </strong></a>
-  </div>
+<div ng-controller="AuthCtrl" ng-show="location !== '/'">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation"> 
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container-fluid">
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"> <strong> Personal Trainer </strong></a>
+    </div>
 
-  <!-- Collect the nav links, forms, and other content for toggling -->
-  <div class="collapse navbar-collapse navbar-ex1-collapse">
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="/signup" ng-hide="Auth.isLoggedIn()">Signup</a></li>
-      <li><a href="/login" ng-hide="Auth.isLoggedIn()">Login</a></li>
-      <li id="username" ng-show="Auth.isLoggedIn()"> {{ currentUser._doc.email}} </li>
-      <li><a href="" ng-click="logout()" ng-show="Auth.isLoggedIn()">Logout</a></li>
-    </ul>
-  </div><!-- /.navbar-collapse -->
-  </div>
-</nav>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse" id="nav-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li id="username" ng-show="Auth.isLoggedIn()"> Hi, {{ currentUserFirstName }} </li>
+        <li><a href="/profile" 
+               class="nav-item"
+               ng-show="Auth.isLoggedIn()"
+               data-toggle="collapse"
+               data-target=".navbar-collapse.in">Profile</a></li>
+        <li><a href="" 
+               class="nav-item"
+               ng-click="logout()"
+               ng-show="Auth.isLoggedIn()"
+               data-toggle="collapse"
+               data-target=".navbar-collapse.in">Logout</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+    </div>
+  </nav>
+  <div ng-controller="AuthCtrl" ng-show="location !== '/'" style="height: 50px"></div>
+</div>
