@@ -7,7 +7,8 @@ var UserSchema = mongoose.Schema({
   password: String,
   accountType: String,
   gender: String,
-  height: Number,
+  heightFeet: Number,
+  heightInches: Number,
   weight: Number
 });
 

@@ -8,6 +8,17 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
 .controller('ProfileCtrl', ['$scope', 'Auth', 'User', function($scope, Auth, User) {
   $scope.currentUser = Auth.currentUser();
   $scope.currentUserFirstName = $scope.currentUser._doc.name.split(' ')[0]
+  $scope.profile = {
+      "_id": '',
+      "name": '',
+      "firstName": '',
+      "email": '',
+      "accountType": '',
+      "gender": '',
+      "heightFeet": '',
+      "heightInches": '',
+      "weight": ''
+    }
 
   User.get({id: $scope.currentUser._doc._id}, function success(data) {
     console.log(data);
@@ -17,15 +28,29 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
       "firstName": data.name.split(' ')[0],
       "email": data.email,
       "accountType": data.accountType,
-      "gender": data.gender,
-      "height": data.height,
-      "weight": data.weight
+      "gender": 'Male',
+      // "gender": data.gender,
+      "heightFeet": 6,
+      "heightInches": 2,
+      "weight": 195
+      // "heightFeet": Math.floor(data.height / 12),
+      // "heightInches": data.height % 12,
+      // "weight": data.weight
     }
     console.log('profile: ', $scope.profile);
   }, function error(data) {
     console.log(data);
   });
 
+  $scope.updateProfile = function() {
+    $http.put('/api/user', $scope.profile).then(function success(res) {
+      $scope.currentUser = Auth.currentUser();
+      $scope.location = '/profile'
+      $location.path('/profile');
+    }, function error(res) {
+      console.log(res);
+    });
+  }
 }])
 
 .controller('ShowCtrl', ['$scope', '$stateParams', function($scope, $stateParams) {

@@ -4,11 +4,9 @@
     clear: both;
   }
 }
-
 .navbar {
   margin: 0;
 }
-
 .hero-image {
   padding: 0;
 }
@@ -29,7 +27,21 @@
   position:fixed;
   opacity: .85
 }
-
+@media (min-width: 550px) {
+  #editProfileForm .inputField {
+    width: 550px;
+  }
+}
+.editProfileInline {
+  display: inline-block;
+  margin-right: 5px;
+}
+.inputNumber {
+  width: 60px;
+}
+#editProfileForm {
+  padding: 15px;
+}
 #welcome li {
   width: 50%;
 }
@@ -37,13 +49,9 @@
   padding: 15px;
   font-weight: bold;
 }
-
-
-
 .tabbed-login {
   margin-top: 5vh;
 }
-
 .tab-pane {
   margin-top: 10px;
 }
