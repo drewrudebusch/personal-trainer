@@ -5,11 +5,12 @@ var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var app = express();
 
-var secret = "mysupersecretpassword";
+var secret = process.env.SECRET;
 
 var mongoose = require('mongoose');
 var User = require('./models/user');
-mongoose.connect('mongodb://localhost/personal-trainer');
+// mongoose.connect('mongodb://localhost/personal-trainer');
+mongoose.connect("mongodb://"+process.env.MONGO_USER+":"+process.env.MONGO_PASSWORD+"@ds011314.mlab.com:11314/personal-trainer")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -27,6 +28,7 @@ app.use(function (err, req, res, next) {
 
 app.use('/api/exercises', require('./controllers/exercises'));
 app.use('/api/users', require('./controllers/users'));
+app.use('/api/workouts', require('./controllers/workouts'));
 
 app.post('/api/auth', function(req, res) {
   User.findOne({email: req.body.email}, function(err, user) {

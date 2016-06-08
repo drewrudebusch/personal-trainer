@@ -4,6 +4,15 @@ app.config(['$httpProvider', function($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
 }])
 
+app.run(function($rootScope, $location) {
+  $rootScope.$on('$viewContentLoading', function(event, viewConfig){ 
+    $rootScope.location = $location.path()    
+  });
+  $rootScope.$on('$stateChangeSuccess', function(event) {
+    $rootScope.location = $location.path()
+  });
+})
+
 app.config([
   '$stateProvider',
   '$urlRouterProvider',
@@ -23,6 +32,46 @@ app.config([
     templateUrl: 'app/views/home.html',
     controller: 'HomeCtrl'
   })
+  .state('admin', {
+    url: '/admin',
+    templateUrl: 'app/views/admin.html',
+    controller: 'AdminCtrl'
+  })
+  .state('adminWorkouts', {
+    url: '/admin/workouts',
+    templateUrl: 'app/views/adminWorkouts.html',
+    controller: 'AdminWorkoutsCtrl'
+  })
+  .state('adminWorkoutDetail', {
+    url: '/admin/workouts/view/:id',
+    templateUrl: 'app/views/adminWorkoutDetail.html',
+    controller: 'AdminWorkoutDetailCtrl'
+  })
+  .state('adminWorkoutEdit', {
+    url: '/admin/workouts/edit/:id',
+    templateUrl: 'app/views/adminWorkoutDetail.html',
+    controller: 'AdminWorkoutEditCtrl'
+  })
+  .state('adminWorkoutNew', {
+    url: '/admin/workouts/new',
+    templateUrl: 'app/views/adminWorkoutNew.html',
+    controller: 'AdminWorkoutNewCtrl'
+  })
+  .state('adminUsers', {
+    url: '/admin/users',
+    templateUrl: 'app/views/adminUsers.html',
+    controller: 'AdminUsersCtrl'
+  })
+  .state('adminUserEdit', {
+    url: '/admin/users/edit/:id',
+    templateUrl: 'app/views/adminUserEdit.html',
+    controller: 'ProfileCtrl'
+  })
+  .state('adminUserDetail', {
+    url: '/admin/users/view/:id',
+    templateUrl: 'app/views/adminUserDetail.html',
+    controller: 'ProfileCtrl'
+  })
   .state('profile', {
     url: '/profile',
     templateUrl: 'app/views/profile.html',
@@ -30,7 +79,7 @@ app.config([
   })
   .state('profileEdit', {
     url: '/profile/edit',
-    templateUrl: 'app/views/editProfile.html',
+    templateUrl: 'app/views/profileEdit.html',
     controller: 'ProfileCtrl'
   })
   .state('changePassword', {
@@ -40,7 +89,7 @@ app.config([
   })
   .state('exerciseNew', {
     url: '/exercises/new',
-    templateUrl: 'app/views/newExercise.html',
+    templateUrl: 'app/views/exerciseNew.html',
     controller: 'ExerciseNewCtrl'
   })
   .state('exercises', {
@@ -50,10 +99,10 @@ app.config([
   })
   .state('exerciseShow', {
     url: '/exercises/:id',
-    templateUrl: 'app/views/showExercise.html',
+    templateUrl: 'app/views/exerciseShow.html',
     controller: 'ExerciseShowCtrl'
   })
-  .state('workouts', {
+  .state('profileWorkouts', {
     url: '/profile/workouts',
     templateUrl: 'app/views/workouts.html',
     controller: 'WorkoutCtrl'

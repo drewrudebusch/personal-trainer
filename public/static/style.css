@@ -11,12 +11,11 @@ body {
     margin-bottom: 5px;
   }*/
 }
-a {
-  color: black ;
+.panel-body {
+  background-color: #F8F8F8;
 }
 a:hover, a:visited, a:link, a:active {
   text-decoration: none;
-  color: black;
 }
 .navbar {
   margin: 0;
@@ -61,8 +60,8 @@ a:hover, a:visited, a:link, a:active {
   margin-bottom: 7px;
 }
 .myImgThumbnail {
-  height: 140px;
-  width: 140px;
+  height: 100px;
+  width: 100px;
   margin-bottom: 10px;
 }
 #createExercise .form-group {
@@ -124,6 +123,9 @@ a:hover, a:visited, a:link, a:active {
 .tab-pane {
   margin-top: 10px;
 }
+td {
+  width: 49%;
+}
 
 @media (min-width: 200px) {
     .navbar-header {
@@ -145,7 +147,7 @@ a:hover, a:visited, a:link, a:active {
     }
     .navbar-nav {
       float: none!important;
-      margin: 7.5px -15px;
+      margin: 7.5px -15px; 
     }
     nav li {
     float: right;

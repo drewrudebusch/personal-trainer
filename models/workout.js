@@ -4,9 +4,9 @@ var WorkoutSchema = new mongoose.Schema({
   title: String,
   description: String,
   date: Date,
-  warmup: [],
-  workout: [],
-  cooldown: [],
+  warmups: [],
+  workouts: [],
+  cooldowns: [],
   userId: String
 });
 

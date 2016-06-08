@@ -1,0 +1,49 @@
+<div class="container-fluid profileView" id="profileView">
+  <div class=" pageContent">
+    <div class="well">
+      <h1 class="pageHeader"> Admin - Users </h1>
+    </div>
+    <div class="well">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            <input type="text" class="form-control" placeholder="Search Users" ng-model="searchUsers">
+          </div>      
+        </div>
+      </form>
+      
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <td>
+              <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                Account Name 
+                <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </td>
+            <td>
+              <a href="#" ng-click="sortType = 'accountStatus'; sortReverse = !sortReverse">
+              Account Status 
+                <span ng-show="sortType == 'accountStatus' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'accountStatus' && sortReverse" class="fa fa-caret-up"></span>
+              </a>
+            </td>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr ng-repeat="user in users | orderBy:sortType:sortReverse | filter:searchUsers">
+            <td><a href="/admin/users/view/{{user.id}}"> {{ user.name }}</a></td>
+            <td>{{ user.accountStatus }}</td>
+          </tr>
+        </tbody>
+        
+      </table>
+    </div>
+    <div class="well">
+      <a href="/admin" class="btn btn-primary profile-button"> Back to Admin </a>
+    </div> 
+  </div>
+</div>

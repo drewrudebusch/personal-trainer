@@ -10,7 +10,7 @@ var UserSchema = mongoose.Schema({
   heightFeet: Number,
   heightInches: Number,
   weight: Number,
-  // accountStatus: String
+  accountStatus: String
 });
 
 UserSchema.set('toJSON', {
@@ -23,8 +23,8 @@ UserSchema.set('toJSON', {
       gender: ret.gender,
       heightFeet: ret.heightFeet,
       heightInches: ret.heightInches,
-      weight: ret.weight
-      // accountStatus: ret.accountStatus
+      weight: ret.weight,
+      accountStatus: ret.accountStatus
     };
     return returnJson;
   }

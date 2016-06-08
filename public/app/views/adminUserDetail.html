@@ -2,7 +2,7 @@
 <div class="container-fluid profileView" id="profileView">
   <div class=" pageContent">
     <div class="well">
-    <h1 class="pageHeader"> User Profile </h1>
+    <h1 class="pageHeader"> User Account </h1>
     <div class="form-group">
       <strong>Name: </strong> {{ profile.name }}
     </div>
@@ -56,8 +56,9 @@
     </div>
   </div>
   <div class="well">
-    <a href="/profile/edit" class="btn btn-primary profile-button"> Edit Profile </a>
-    <!-- <a href="/profile/change-password" class="btn btn-success profile-button"> Change Password </a> -->
+    <a href="/admin/users" class="btn btn-primary profile-button"> Back to Users </a>
+    <a href="/admin/users/edit/{{profile._id}}" class="btn btn-success profile-button"> Edit Account </a>
+    
   </div>
   </div>
 </div>

@@ -1,0 +1,70 @@
+<div class="container-fluid exerciseView">
+  <div id="createExercise" class="well pageContent">
+    <h1 class="pageHeader">{{workout.title}} </h1>
+  </div>
+  <div class="well">
+    <strong>Description</strong>
+    <p>{{workout.description}}</p>
+  </div>
+  <div class="panel-group" id="workoutAccordion" role="tablist"
+       aria-multiselectable="true">
+    <a class="collapsed" role="button" data-toggle="collapse"
+       data-parent="#workoutAccordion" data-target="#collapseWarmup"
+       aria-expanded="false" aria-controls="collapseWarmup" ng-show="workout.warmups.length > 0">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            Warmup &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+          </h4>
+        </div>
+      </div>
+    </a>
+    <div id="collapseWarmup" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="form-group" ng-repeat="warmup in workout.warmups">
+          <img class="myImgThumbnail" ng-src="{{exercises[0].images[0].link}}" style="display: inline-block">
+          <div style="display: inline-block; padding-left: 10px;">
+            <h2>{{ exercises[0].name}}</h2>
+            <p><span> Sets: {{warmup.sets}}</span> &nbsp; <span>Reps: {{warmup.reps}}</span></p>
+          </div>
+        </div>        
+      </div>
+    </div>
+    <a class="collapsed" role="button" data-toggle="collapse" 
+       data-parent="#workoutAccordion" data-target="#collapseWorkout"
+       aria-expanded="false" aria-controls="collapseWorkout" ng-show="workout.workouts.length > 0"> 
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            Workout &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+          </h4>
+        </div>
+      </div>
+    </a>
+    <div id="collapseWorkout" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+      </div>
+    </div>
+    <a class="collapsed" role="button" data-toggle="collapse"
+       data-parent="#workoutAccordion" data-target="#collapseCooldown"
+       aria-expanded="false" aria-controls="collapseCooldown" ng-show="workout.cooldowns.length">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            Cooldown &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+          </h4>
+        </div>
+      </div>
+    </a>
+    <div id="collapseCooldown" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+      </div>
+    </div>
+  </div>    
+  <div class="well">
+    <a href="/exercises" class="btn btn-primary profile-button"> &larr; To Exercises</a>
+    <a href="" class="btn btn-danger profile-button" ng-click="deleteExercise(exercise)"> Delete Exercise </a>
+  </div>
+</div>

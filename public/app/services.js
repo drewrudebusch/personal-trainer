@@ -1,14 +1,25 @@
 angular.module('PersonalTrainerServices', ['ngResource'])
 .factory('Exercise', ['$resource', function($resource) {
   return $resource('/api/exercises/:id', { id: '@_id'}, {
+    query: {method: 'GET', cache: false, isArray: true},
     get: {method: 'GET', cache: false, isArray: false},
-    update: {method: 'PUT', cache: false, isArray: false}
+    update: {method: 'PUT', cache: false, isArray: false},
+    delete: {method:'DELETE', cache: false}
   });
+}])
 
+.factory('Workout', ['$resource', function($resource) {
+  return $resource('/api/workouts/:id', { id: '@_id'}, {
+    query: {method: 'GET', cache: false, isArray: true},
+    get: {method: 'GET', cache: false, isArray: false},
+    update: {method: 'PUT', cache: false, isArray: false},
+    delete: {method:'DELETE', cache: false}
+  });
 }])
 
 .factory('User', ['$resource', function($resource) {
   return $resource('/api/users/:id', { id: '@_id' }, {
+    query: {method: 'GET', cache: false, isArray: true},
     get: {method: 'GET', cache: false, isArray: false},
     update: {method: 'PUT', cache: false, isArray: false}
   });
