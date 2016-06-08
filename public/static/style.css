@@ -11,6 +11,13 @@ body {
     margin-bottom: 5px;
   }*/
 }
+a {
+  color: black ;
+}
+a:hover, a:visited, a:link, a:active {
+  text-decoration: none;
+  color: black;
+}
 .navbar {
   margin: 0;
 }
@@ -21,6 +28,7 @@ body {
   width: 47%;
   margin-right: 2px;
   margin-left: 2px;
+  margin-bottom: 10px;
 }
 .center-fixed {
   text-align: center;
@@ -36,8 +44,26 @@ body {
 #welcome {
   opacity: .85
 }
-#createExercise {
-  margin-top: 12vh;
+.pageHeader {
+  display: inline-block;
+  margin: 0;
+  margin-bottom: 10px;
+}
+.pageContent {
+  margin-top: 5vh;
+}
+.well {
+  padding-bottom: 5px;
+  border-radius: 0px;
+  background-color: #F8F8F8;
+}
+.myFormGroup {
+  margin-bottom: 7px;
+}
+.myImgThumbnail {
+  height: 140px;
+  width: 140px;
+  margin-bottom: 10px;
 }
 #createExercise .form-group {
   margin: 0;
@@ -52,11 +78,20 @@ body {
   margin: 0;
   margin-bottom: 5px;
 }
+.exerciseView>a {
+    margin-bottom: 10px;
+  }
 @media (min-width: 550px) {
   #editProfileForm .inputField {
     width: 550px;
   }
-  #profileView a {
+  .profileView a {
+    width: 200px;
+  }
+  .exerciseView a {
+    width: 200px;
+  }
+  .profileView input[type="submit"] {
     width: 200px;
   }
 }
@@ -70,7 +105,7 @@ body {
   margin-right: 5px;
 }
 .inputNumber {
-  width: 60px;
+  width: 70px;
 }
 #editProfileForm {
   padding: 15px;
@@ -79,14 +114,63 @@ body {
   width: 50%;
 }
 #username {
-  padding: 15px;
+  padding: 15px 25px 15px 25px;
   font-weight: bold;
+  float: right;
 }
 .tabbed-login {
   margin-top: 5vh;
 }
 .tab-pane {
   margin-top: 10px;
+}
+
+@media (min-width: 200px) {
+    .navbar-header {
+      float: none;
+    }
+    .navbar-toggle {
+      display: block;
+      float: right;
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+    }
+    .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+      display: none!important;
+    }
+    .navbar-nav {
+      float: none!important;
+      margin: 7.5px -15px;
+    }
+    nav li {
+    float: right;
+    clear: both;
+  }
+    .navbar-nav>li {
+      float: right;
+      clear: both;
+      margin-right: 10px;
+    }
+    .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .navbar-text {
+      float: none;
+      margin: 15px 0;
+    }
+    /* since 3.1.0 */
+    .navbar-collapse.collapse.in { 
+      display: block!important;
+    }
+    .collapsing {
+      overflow: hidden!important;
+    }
 }
 
 

@@ -6,7 +6,8 @@ var WorkoutSchema = new mongoose.Schema({
   date: Date,
   warmup: [],
   workout: [],
-  cooldown: []
+  cooldown: [],
+  userId: String
 });
 
 module.exports = mongoose.model('Workout', WorkoutSchema);

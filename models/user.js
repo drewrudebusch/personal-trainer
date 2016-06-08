@@ -23,7 +23,7 @@ UserSchema.set('toJSON', {
       gender: ret.gender,
       heightFeet: ret.heightFeet,
       heightInches: ret.heightInches,
-      weight: ret.weightm
+      weight: ret.weight
       // accountStatus: ret.accountStatus
     };
     return returnJson;

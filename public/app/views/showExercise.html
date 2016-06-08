@@ -1,10 +1,23 @@
-<h1>{{recipe.title}}</h1>
-
-<div class="well">
-  <p>
-    {{recipe.description}}
-  </p>
-  <img class="img-responsive" ng-src="{{recipe.image}}">
+<div class="container-fluid exerciseView">
+  <div id="createExercise" class="well pageContent">
+    <h1 class="pageHeader">{{exercise.name}}</h1>
+  </div>
+  <div class="well">
+    <strong>Description</strong>
+    <p>{{exercise.description}}</p>
+  </div>
+  <div class="well" ng-show="exercise.muscleGroups.length > 0">
+    
+  </div>
+  <div class="well" ng-show="exercise.images.length > 0">
+    <a href="{{image.link}}" ng-repeat="image in exercise.images" target="_blank"><img class="img-responsive img-thumbnail myImgThumbnail"
+         ng-src="{{image.link}}"></a>
+  </div>
+  <div class="well" ng-show="exercise.video">
+    <a href="{{exercise.video}}" target="_blank">{{exercise.name}} video</a>
+  </div>
+  
+  <div class="well">
+    <a href="/exercises" class="btn btn-primary profile-button"> &larr; To Exercises</a>
+  </div>
 </div>
-
-<a href="/" class="btn btn-primary">&larr; Back</a>

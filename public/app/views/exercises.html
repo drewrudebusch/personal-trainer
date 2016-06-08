@@ -1,6 +1,10 @@
 <div class="container-fluid">
-  <div class="well">
+  <div class="pageContent">
+    <div class="well">
+      <h1 class="pageHeader"> EXERCISES </h1> <a href="/exercises/new" class="text-success"><span class="glyphicon glyphicon-plus-sign" style="font-size: 32px;"></span></a>
+
+        <p ng-repeat="exercise in exercises | orderBy:'name'"><a href="/exercises/{{exercise._id}}"> {{ exercise.name }} </a></p>
+    </div>
     
   </div>
-  <h1 style="color: red"> EXERCISES </h1>
 </div>

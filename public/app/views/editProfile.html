@@ -1,59 +1,65 @@
 
-<div class="container-fluid">
-  <h1> {{ currentUserFirstName }}'s Profile </h1>
-  <form class="form-horizontal" id="editProfileForm" ng-submit="updateProfile()">
-    <div class="form-group">
-      <label for="editProfileName">Name</label>
-      <input type="text" class="form-control inputField" id="editProfileName" value="{{ profile.name}}" ng-model="profile.name">
-    </div>
-    <div class="form-group">
-      <label for="editProfileEmail">Email</label>
-      <input type="email" class="form-control inputField" id="editProfileEmail" value="{{ profile.email}}" ng-model="profile.email">
-    </div>
-    <div class="form-group" ng-hide="if ( profile.gender )">
-      <label> Gender </label>
-      <div>
-        <label class="radio-inline">
-          <input type="radio"
-                 name="profileGender"
-                 id="profileGenderMale"
-                 value="Male"
-                 ng-model="profile.gender"> Male
-        </label>
-        <label class="radio-inline">
-          <input type="radio"
-                 name="profileGender"
-                 id="profileGenderFemale"
-                 value="Female"
-                 ng-model="profile.gender"> Female
-        </label>
+<div class="container-fluid profileView">
+  <form class="form-horizontal" style="padding:0;" id="editProfileForm" ng-submit="updateProfile()">
+    <div class="well pageContent">
+    <h1 class="pageHeader"> {{ currentUserFirstName }}'s Profile </h1>
+      <div class="myFormGroup">
+        <label for="editProfileName">Name</label>
+        <input type="text" class="form-control inputField" id="editProfileName" value="{{ profile.name}}" ng-model="profile.name">
       </div>
-    </div>
-    <div class="form-group">
-      <label for="editProfileHeight">Height</label>
-      <div>
-        <input type="number"
-               id="editProfileHeightFeet"
-               class="form-control inputNumber editProfileInline"
-               min="4"
-               max="7"
-               ng-model="profile.heightFeet">
-        <strong class="editProfileInline">feet</strong>
-        <input type="number"
-               id="editProfileHeightInches"
-               class="form-control inputNumber editProfileInline"
-               min="0"
-               max="11"
-               ng-model="profile.heightInches">
-        <strong class="editProfileInline">inches</strong>
+      <div class="myFormGroup">
+        <label for="editProfileEmail">Email</label>
+        <input type="email" class="form-control inputField" id="editProfileEmail" value="{{ profile.email}}" ng-model="profile.email">
       </div>
+      <div class="myFormGroup" ng-hide="if ( profile.gender )">
+        <label> Gender </label>
+        <div>
+          <label class="radio-inline">
+            <input type="radio"
+                   name="profileGender"
+                   id="profileGenderMale"
+                   value="Male"
+                   ng-model="profile.gender"> Male
+          </label>
+          <label class="radio-inline">
+            <input type="radio"
+                   name="profileGender"
+                   id="profileGenderFemale"
+                   value="Female"
+                   ng-model="profile.gender"> Female
+          </label>
+        </div>
+      </div>
+      <div class="myFormGroup">
+        <label for="editProfileHeight">Height</label>
+        <div>
+          <input type="number"
+                 id="editProfileHeightFeet"
+                 class="form-control inputNumber editProfileInline"
+                 min="4"
+                 max="7"
+                 ng-model="profile.heightFeet">
+          <strong class="editProfileInline">feet</strong>
+          <input type="number"
+                 id="editProfileHeightInches"
+                 class="form-control inputNumber editProfileInline"
+                 min="0"
+                 max="11"
+                 ng-model="profile.heightInches">
+          <strong class="editProfileInline">inches</strong>
+        </div>
+      </div>
+      <div class="myFormGroup">
+        <label for="editProfileWeight">Weight</label>
+        <input type="number" class="form-control inputNumber" id="editProfileWeight" ng-model="profile.weight">
+      </div>
+    <!--   <div class="form-group">
+        <input type="submit" class="btn btn-primary"></input>
+      </div> -->
     </div>
-    <div class="form-group">
-      <label for="editProfileWeight">Weight</label>
-      <input type="number" class="form-control inputNumber" id="editProfileWeight" ng-model="profile.weight">
-    </div>
-    <div class="form-group">
-      <input type="submit" class="btn btn-primary"></input>
+    <div class="well">
+        <input type="submit" class="btn btn-primary profile-button"></input>
+        <a href="/profile" class="btn btn-danger profile-button"> Cancel </a>
     </div>
       <!-- <p class="help-block">Example block-level help text here.</p> -->
   </form>

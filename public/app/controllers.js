@@ -5,33 +5,34 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   $scope.currentUser = Auth.currentUser();
 }])
 
-.controller('ExercisesCtrl', ['$scope', '$stateParams', function($scope, $stateParams) {
+.controller('ExercisesCtrl', ['$scope', '$stateParams', 'Exercise', function($scope, $stateParams, Exercise) {
   $scope.exercises = {};
 
-  // Exercise.get({id: $stateParams.id}, function success(data) {
-  //   $scope.exercises = data;
-  // }, function error(data) {
-  //   console.log(data);
-  // });
-}])
-
-.controller('ExerciseShowCtrl', ['$scope', '$stateParams', function($scope, $stateParams) {
-  $scope.exercises = {};
-
-  Exercise.get({id: $stateParams.id}, function success(data) {
+  Exercise.query(function success(data) {
+    console.log(data);
     $scope.exercises = data;
   }, function error(data) {
     console.log(data);
   });
 }])
 
-.controller('ExerciseNewCtrl', ['$scope', '$location', function($scope, $location) {
+.controller('ExerciseShowCtrl', ['$scope', '$stateParams', 'Exercise', function($scope, $stateParams, Exercise) {
+  $scope.exercise = {};
+
+  Exercise.get({id: $stateParams.id}, function success(data) {
+    $scope.exercise = data;
+  }, function error(data) {
+    console.log(data);
+  });
+}])
+
+.controller('ExerciseNewCtrl', ['$scope', '$location', 'Exercise', function($scope, $location, Exercise) {
   $scope.exercise = {
-    name: 'Bench Press',
-    description: 'Lie flat under barbell, lower bar, press up',
-    images: [{'id': 1, 'link': 'www.google.com'}],
+    name: '',
+    description: '',
+    images: [{'id': 1, 'link': ''}],
     video: '',
-    muscleGroups: ['chest', 'shoulders']
+    muscleGroups: []
   };
 
   $scope.showImageLabel = function (image) {
@@ -42,9 +43,10 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
     return image.id === $scope.exercise.images[0].id;
   };
   $scope.addNewImage = function() {
-    var newItemNo = $scope.exercise.images[$scope.exercise.images.length-1].id + 1;
+    console.log('$scope.exercise: ', $scope.exercise)
+    var newItemNo = $scope.exercise.images[$scope.exercise.images.length-1].id;
     console.log(newItemNo);
-    $scope.exercise.images.push({'id':newItemNo});
+    $scope.exercise.images.push({'id':newItemNo + 1});
   };
   $scope.removeNewImage = function(image) {
     var removeIndex;
@@ -55,14 +57,17 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
       }
     }
     $scope.exercise.images.splice(removeIndex, 1);
+    console.log('$scope.exercise: ', $scope.exercise);
   }
 
   $scope.createExercise = function() {
-    // Exercise.save($scope.exercise, function success(data) {
-    //   $location.path('/');
-    // }, function error(data) {
-    //   console.log(data);
-    // });
+    console.log($scope.exercise)
+    Exercise.save($scope.exercise, function success(data) {
+      console.log(data);
+      $location.path('/exercises');
+    }, function error(data) {
+      console.log(data);
+    });
   }
 }])
 
@@ -168,4 +173,9 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
       console.log(data);
     });
   }
+}])
+.controller('WorkoutCtrl', ['$scope', 'Auth', 'User', '$http', '$location',
+                    function($scope, Auth, User, $http, $location) {
+  $scope.currentUser = Auth.currentUser();
+  
 }])
