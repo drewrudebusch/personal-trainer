@@ -1,5 +1,6 @@
 body {
   background-color: #302f2f;
+  padding-top: 50px;
 }
 @media (max-width: 767px) {
   nav li {
@@ -11,12 +12,18 @@ body {
     margin-bottom: 5px;
   }*/
 }
+.addItemSmall {
+  font-size: 18px;
+}
 .shortForm {
   width: 50px;
   margin: 10px 5px;
 }
 .panel-body {
   background-color: #F8F8F8;
+}
+.panel-heading:hover {
+  background-color: lightgray;
 }
 a:hover, a:visited, a:link, a:active {
   text-decoration: none;
@@ -64,6 +71,7 @@ a:hover, a:visited, a:link, a:active {
   margin-bottom: 7px;
 }
 .myImgThumbnail {
+  display: inline-block;
   height: 100px;
   width: 100px;
   margin-bottom: 10px;

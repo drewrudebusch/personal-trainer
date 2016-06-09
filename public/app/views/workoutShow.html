@@ -23,10 +23,10 @@
     <div id="collapseWarmup" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <div class="form-group" ng-repeat="warmup in workout.warmups">
-          <img class="myImgThumbnail" ng-src="{{exercises[0].images[0].link}}" style="display: inline-block">
+          <img class="myImgThumbnail" ng-src="{{ exercises[exerciseIndex(warmup)].images[0].link }}"> 
           <div style="display: inline-block; padding-left: 10px;">
-            <h2>{{ exercises[0].name}}</h2>
-            <p><span> Sets: {{warmup.sets}}</span> &nbsp; <span>Reps: {{warmup.reps}}</span></p>
+            <h2>{{ exercises[exerciseIndex(warmup)].name}}</h2>
+            <p><span> Sets: {{warmup.setsGoal}}</span> &nbsp; <span>Reps: {{warmup.repsGoal}}</span></p>
           </div>
         </div>        
       </div>
@@ -45,10 +45,10 @@
     <div id="collapseWorkout" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
         <div class="form-group" ng-repeat="workout in workout.workouts">
-          <img class="myImgThumbnail" ng-src="{{exercises[0].images[0].link}}" style="display: inline-block">
+          <img class="myImgThumbnail" ng-src="{{ exercises[exerciseIndex(workout)].images[0].link }}"> 
           <div style="display: inline-block; padding-left: 10px;">
-            <h2>{{ exercises[0].name}}</h2>
-            <p><span> Sets: {{workout.sets}}</span> &nbsp; <span>Reps: {{workout.reps}}</span></p>
+            <h2>{{ exercises[exerciseIndex(workout)].name}}</h2>
+            <p><span> Sets: {{workout.setsGoal}}</span> &nbsp; <span>Reps: {{workout.repsGoal}}</span></p>
           </div>
         </div>     
       </div>
@@ -68,17 +68,17 @@
     <div id="collapseCooldown" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
         <div class="form-group" ng-repeat="cooldown in workout.cooldowns">
-          <img class="myImgThumbnail" ng-src="{{exercises[0].images[0].link}}" style="display: inline-block">
+          <img class="myImgThumbnail" ng-src="{{ exercises[exerciseIndex(cooldown)].images[0].link }}">  <!-- exercises[0].images[0].link -->
           <div style="display: inline-block; padding-left: 10px;">
-            <h2>{{ exercises[0].name}}</h2>
-            <p><span> Sets: {{cooldown.sets}}</span> &nbsp; <span>Reps: {{cooldown.reps}}</span></p>
+            <h2>{{ exercises[exerciseIndex(cooldown)].name}}</h2>
+            <p><span> Sets: {{cooldown.setsGoal}}</span> &nbsp; <span>Reps: {{cooldown.repsGoal}}</span></p>
           </div>
         </div>
       </div>
     </div>
   </div>    
   <div class="well">
-    <a href="/exercises" class="btn btn-primary profile-button"> Back to Workouts </a>
+    <a href="/profile/workouts" class="btn btn-primary profile-button"> Back to Workouts </a>
     <a href="" class="btn btn-danger profile-button" ng-click="deleteExercise(exercise)"> Delete Exercise </a>
   </div>
 </div>

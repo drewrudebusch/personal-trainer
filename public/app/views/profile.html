@@ -41,18 +41,28 @@
     </div>
       <!-- <p class="help-block">Example block-level help text here.</p> -->
   </div>
-  <div class="well">
-    <div class="form-group">
-      <strong>Primary Gym: </strong> Rain City Fit
-    </div>
-    <div class="form-group">
-      <strong>Primary Trainer: </strong> Ben K.
-    </div>
-    <div class="form-group">
-      <strong>Email </strong> benk@raincityfit.com
-    </div>
-    <div class="form-group">
-      <strong>Phone </strong> (555) 555-1234
+  <div class="panel-group" role="tablist" aria-multiselectable="true">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#userProfileGym" aria-expanded="true" aria-controls="collapseOne">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+              <strong>Primary Gym:</strong> Rain City Fit &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+          </h4>
+        </div>
+      </div>
+    </a>
+    <div id="userProfileGym" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <div class="form-group">
+          <strong>Primary Trainer: </strong> Ben K.
+        </div>
+        <div class="form-group">
+          <strong>Email </strong> benk@raincityfit.com
+        </div>
+        <div class="form-group">
+          <strong>Phone </strong> (555) 555-1234
+        </div>
+      </div>
     </div>
   </div>
   <div class="well">

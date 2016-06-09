@@ -85,7 +85,8 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   $scope.user = {
     name: '',
     email: '',
-    password: ''
+    password: '',
+    accountType: ''
   };
 
   $scope.pwChange = {
@@ -115,9 +116,17 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
     $location.path('/');
   }
 
+  $scope.isAdmin = function(user){
+      if (user._doc.accountType === 'Admin') {
+        return true;
+      } return false;
+    }
+
   $scope.userSignup = function() {
     console.log('User Signup should be firing');
     Cache.invalidate('/api/user');
+    $scope.user.accountType = 'User';
+    $scope.user.accountStatus = 'Active'
     $http.post('/api/users', $scope.user).then(function success(res) {
       console.log('response: ', res);
     }, function error(res) {
@@ -144,7 +153,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   // }
 }])
 
-.controller('AdminCtrl', ['$scope', 'User', function($scope, User) {
+.controller('AdminCtrl', ['$scope', 'User', 'Workout', function($scope, User, Workout) {
   $scope.users = [];
 
   User.query(function success(data) {
@@ -153,17 +162,23 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
     }, function error(data) {
       console.log(data);
     });
+  Workout.query(function success(data) {
+      console.log('workouts: ', data);
+      $scope.workouts = data;
+    }, function error(data) {
+      console.log(data);
+    });
 
-  $scope.workouts = [{
-    _id: '57573ce5fde5b9252bad8555',
-    title: 'Monday Strength Routine',
-    date: '2016-06-22',
-    description: 'Bench, Squat, Cleans, Sit-ups',
-    warmups: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 10, 'note': 'get warm'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 20, 'note': 'get warmer'}],
-    workouts: [{'_id': '575743314bb2e27835207b99', 'sets': 2, 'reps': 20, 'note': 'try hard'}, {'_id': '57573ce5fde5b9252bad8943', 'sets': 2, 'reps': 10, 'note': 'try harder'}],
-    cooldowns: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 5, 'note': 'start cooling down'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 10, 'note': 'cooled down'}],
-    userId: 'template'
-  }];
+  // $scope.workouts = [{
+  //   _id: '57573ce5fde5b9252bad8555',
+  //   title: 'Monday Strength Routine',
+  //   date: '2016-06-22',
+  //   description: 'Bench, Squat, Cleans, Sit-ups',
+  //   warmups: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 10, 'note': 'get warm'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 20, 'note': 'get warmer'}],
+  //   workouts: [{'_id': '575743314bb2e27835207b99', 'sets': 2, 'reps': 20, 'note': 'try hard'}, {'_id': '57573ce5fde5b9252bad8943', 'sets': 2, 'reps': 10, 'note': 'try harder'}],
+  //   cooldowns: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 5, 'note': 'start cooling down'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 10, 'note': 'cooled down'}],
+  //   userId: 'template'
+  // }];
 }])
 .controller('AdminWorkoutsCtrl', ['$scope', 'User', 'Workout', 'Exercise', function($scope, User, Workout, Exercise) {
   $scope.workouts = [];
@@ -174,11 +189,12 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
       $scope.exercises = data;
   })
   Workout.query(function success(data) {
-      console.log(data);
-      $scope.users = data;
+      console.log('workouts: ', data);
+      $scope.workouts = data;
     }, function error(data) {
       console.log(data);
     });
+
   $scope.workouts = [{
     title: 'Monday Strength Routine',
     description: 'Bench, Squat, Cleans, Sit-ups',
@@ -216,8 +232,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   };
 }])
 
-.controller('AdminWorkoutNewCtrl', ['$scope', 'Auth', 'User', '$http', '$location', 'Exercise',
-                    function($scope, Auth, User, $http, $location, Exercise) {
+.controller('AdminWorkoutNewCtrl', ['$scope', 'Auth', 'User', 'Exercise', 'Workout', '$http', 'Cache', '$location', function($scope, Auth, User, Exercise, Workout, $http, $location, Cache) {
   $scope.currentUser = Auth.currentUser();
 
   Exercise.query(function success(data) {
@@ -231,7 +246,6 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   })
   
   $scope.workout = {
-    _id: '',
     title: '',
     date: '',
     description: '',
@@ -322,11 +336,17 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
       return cooldown.exerciseId != '' && cooldown.repsGoal > 0 && cooldown.setsGoal > 0
     });
     console.log($scope.workout)
-    // Remove all empty warmup, workout, and cooldown objects from array
-    // Exercise.save($scope.exercise, function success(data) {
+    $http.post('/api/workouts', $scope.workout).then(
+      function success(res) {
+        console.log('response: ', res);
+      },
+      function error(res) {
+        console.log('error: ', res);
+      });
+    // Workout.save($scope.workout, function success(data) {
     //   console.log(data);
-    //   Cache.invalidate('/api/exercises');
-    //   $location.path('/exercises');
+    //   Cache.invalidate('/api/workouts');
+    //   $location.path('/admin/workouts');
     // }, function error(data) {
     //   console.log(data);
     // });
@@ -352,6 +372,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
 .controller('ProfileCtrl', ['$scope', 'Auth', 'User', '$http', '$location', '$rootScope', '$stateParams',
                     function($scope, Auth, User, $http, $location, $rootScope, $stateParams) {
   $scope.currentUser = Auth.currentUser();
+  console.log('currentUser: ', $scope.currentUser);
   $scope.profile = {
       "_id": '',
       "name": '',
@@ -361,12 +382,14 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
       "gender": '',
       "heightFeet": '',
       "heightInches": '',
-      "weight": ''
+      "weight": '',
+      "accountType": ''
     }
 
   var userId = '';
-
-  if ($rootScope.location.split('/')[1] === 'profile') {
+  var currentLocation = $rootScope.location.split('/')[1]
+  console.log('currentLocation: ', currentLocation);
+  if (currentLocation === 'profile') {
     userId = $scope.currentUser._doc._id
   } else {
     userId = $stateParams.id
@@ -384,17 +407,24 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
       "gender": data.gender,
       "heightFeet": data.heightFeet ? data.heightFeet : 0,
       "heightInches": data.heightInches ? data.heightInches : 0,
-      "weight": data.weight ? data.weight : 0
+      "weight": data.weight ? data.weight : 0,
+      "accountType": data.accountType,
+      "accountStatus": data.accountStatus
     }
-    console.log('profile: ', $scope.profile);
+    console.log('currentUser: ', $scope.profile);
   }, function error(data) {
     console.log(data);
   });
 
   $scope.updateProfile = function(id) {
+    console.log('profile at update: ', $scope.profile);
     $http.put('/api/users/' + $scope.profile._id, $scope.profile).then(
       function success(res) {
-        $location.path('/profile');
+        if (currentLocation === 'admin') {
+          $location.path('/admin/users/view/' + $scope.profile._id)
+        } else {
+          $location.path('/profile');
+        }
     },
       function error(res) {
       var data = res
@@ -403,57 +433,77 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   }
 }])
 
-.controller('WorkoutCtrl', ['$scope', 'Auth', 'User', '$http', '$location',
-                    function($scope, Auth, User, $http, $location) {
+.controller('WorkoutCtrl', ['$scope', 'Auth', 'User', 'Exercise', 'Workout', '$http', '$location',
+                    function($scope, Auth, User, Exercise, Workout, $http, $location) {
   $scope.currentUser = Auth.currentUser();
+  console.log('currentUser: ', $scope.currentUser);
 
   Exercise.query(function success(data) {
-      console.log(data);
+      console.log('exercises: ', data);
       $scope.exercises = data;
   })
+  $scope.workouts
+  Workout.query(function success(data) {
+    console.log('workouts: ', data);
+    // $scope.workouts = data;
+    $scope.workouts = data.filter(function (workout) {
+      return workout.userId === $scope.currentUser._doc._id;
+    })
+  });
+  console.log('workouts end result: ', $scope.workouts);
 
-  $scope.workouts = [{
-    _id: '57573ce5fde5b9252bad8555',
-    title: 'Monday Strength Routine',
-    date: '2016-06-22',
-    description: 'Bench, Squat, Cleans, Sit-ups',
-    warmups: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 10, 'note': 'get warm'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 20, 'note': 'get warmer'}],
-    workouts: [{'_id': '575743314bb2e27835207b99', 'sets': 2, 'reps': 20, 'note': 'try hard'}, {'_id': '57573ce5fde5b9252bad8943', 'sets': 2, 'reps': 10, 'note': 'try harder'}],
-    cooldowns: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 5, 'note': 'start cooling down'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 10, 'note': 'cooled down'}],
-    userId: 'template'
-  }];
+  $scope.upcoming = function(workout) {
+    // Do some tests
+    if(workout.date > 2)
+    {
+        return true; // this will be listed in the results
+    }
+    return false; // otherwise it won't be within the results
+  };
+    // data.map(function(x) {return x._id; }).indexOf(exercise.exerciseId);
+    //   // target = $scope.exercises.filter(function (cooldown) {
+    //   //   return exercise.exerciseId === cooldown._id ;
+    //   // });
+    //   return index
+    //   }
 }])
 
-.controller('WorkoutShowCtrl', ['$scope', 'Auth', 'User', '$http', '$location', 'Exercise',
-                    function($scope, Auth, User, $http, $location, Exercise) {
-  $scope.currentUser = Auth.currentUser();
+.controller('WorkoutShowCtrl',
+  ['$scope', 'Auth', 'User', 'Exercise', 'Workout', '$stateParams', '$http', '$location',
+  function($scope, Auth, User, Exercise, Workout, $stateParams, $http, $location) {
+    $scope.currentUser = Auth.currentUser();
 
-  Exercise.query(function success(data) {
+    Exercise.query(function success(data) {
+        console.log(data);
+        $scope.exercises = data;
+    })
+    $scope.warmupExpanded = false;
+    $scope.workoutExpanded = false;
+    $scope.cooldownExpanded = false;
+
+    $scope.expanded = function(type) {
+      if (type == 'warmup') {
+        $scope.warmupExpanded = !$scope.warmupExpanded;
+      } else if (type == 'workout') {
+        $scope.workoutExpanded = !$scope.workoutExpanded;
+      } else if (type === 'cooldown') {
+        $scope.cooldownExpanded = !$scope.cooldownExpanded;
+      } else { console.log('Ruh roh!');}
+    }
+    $scope.exerciseIndex = function(exercise) {
+      console.log('exercise: ', exercise);
+      var index = '';
+      index = $scope.exercises.map(function(x) {return x._id; }).indexOf(exercise.exerciseId);
+      // target = $scope.exercises.filter(function (cooldown) {
+      //   return exercise.exerciseId === cooldown._id ;
+      // });
+      return index
+      }
+
+    Workout.get({id: $stateParams.id}, function success(data) {
+      console.log('workout data: ', data)
+      $scope.workout = data;
+    }, function error(data) {
       console.log(data);
-      $scope.exercises = data;
-  })
-  $scope.warmupExpanded = false;
-  $scope.workoutExpanded = false;
-  $scope.cooldownExpanded = false;
-
-  $scope.expanded = function(type) {
-    if (type == 'warmup') {
-      $scope.warmupExpanded = !$scope.warmupExpanded;
-    } else if (type == 'workout') {
-      $scope.workoutExpanded = !$scope.workoutExpanded;
-    } else if (type === 'cooldown') {
-      $scope.cooldownExpanded = !$scope.cooldownExpanded;
-    } else { console.log('Ruh roh!');}
-  }
-
-  $scope.workout = {
-    _id: '57573ce5fde5b9252bad8555',
-    title: 'Monday Strength Routine',
-    date: '2016-06-22',
-    description: 'Bench, Squat, Cleans, Sit-ups',
-    warmups: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 10, 'note': 'get warm'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 20, 'note': 'get warmer'}],
-    workouts: [{'_id': '575743314bb2e27835207b99', 'sets': 2, 'reps': 20, 'note': 'try hard'}, {'_id': '57573ce5fde5b9252bad8943', 'sets': 2, 'reps': 10, 'note': 'try harder'}],
-    cooldowns: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 5, 'note': 'start cooling down'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 10, 'note': 'cooled down'}],
-    userId: 'template'
-  };
+    });
 }])

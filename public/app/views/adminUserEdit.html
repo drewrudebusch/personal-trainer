@@ -34,14 +34,12 @@
         <label for="editProfileHeight">Height</label>
         <div>
           <input type="number"
-                 id="editProfileHeightFeet"
                  class="form-control inputNumber editProfileInline"
                  min="4"
                  max="7"
                  ng-model="profile.heightFeet">
           <strong class="editProfileInline">feet</strong>
           <input type="number"
-                 id="editProfileHeightInches"
                  class="form-control inputNumber editProfileInline"
                  min="0"
                  max="11"
@@ -52,6 +50,44 @@
       <div class="myFormGroup">
         <label for="editProfileWeight">Weight</label>
         <input type="number" class="form-control inputNumber" id="editProfileWeight" ng-model="profile.weight">
+      </div>
+      <div class="myFormGroup">
+        <label for="editProfileAccountType">Account Type</label>
+        <div>
+          <label class="radio-inline">
+            <input type="radio"
+                   name="profileAccountType"
+                   id="profileAccountTypeAdmin"
+                   value="User"
+                   ng-model="profile.accountType"> User
+          </label>
+          <label class="radio-inline">
+            <input type="radio"
+                   name="profileAccountType"
+                   id="profileAccountTypeAdmin"
+                   value="Admin"
+                   ng-model="profile.accountType"> Admin
+          </label>
+        </div>
+      </div>
+      <div class="myFormGroup">
+        <label for="editProfileAccountType">Account Status</label>
+        <div>
+          <label class="radio-inline">
+            <input type="radio"
+                   name="profileAccountStatus"
+                   id="profileAccountStatusActive"
+                   value="Active"
+                   ng-model="profile.accountStatus"> Active
+          </label>
+          <label class="radio-inline">
+            <input type="radio"
+                   name="profileAccountStatus"
+                   id="profileAccountStatusInactive"
+                   value="Inactive"
+                   ng-model="profile.accountStatus"> Inactive
+          </label>
+        </div>
       </div>
     </div>
     <div class="well">

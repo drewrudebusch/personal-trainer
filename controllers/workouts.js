@@ -4,23 +4,23 @@ var router = express.Router();
 
 router.route('/')
   .get(function(req, res) {
-    Workout.find(function(err, exercises) {
+    Workout.find(function(err, workouts) {
       if (err) return res.status(500).send(err);
-      res.send(exercises);
+      res.send(workouts);
     });
   })
   .post(function(req, res) {
-    Workout.create(req.body, function(err, exercise) {
+    Workout.create(req.body, function(err, workout) {
       if (err) return res.status(500).send(err);
-      res.send(exercise);
+      res.send(workout);
     });
   });
 
 router.route('/:id')
   .get(function(req, res) {
-    Workout.findById(req.params.id, function(err, exercise) {
+    Workout.findById(req.params.id, function(err, workout) {
       if (err) return res.status(500).send(err);
-      res.send(exercise);
+      res.send(workout);
     });
   })
   .put(function(req, res) {

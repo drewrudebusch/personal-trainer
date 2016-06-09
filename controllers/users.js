@@ -34,7 +34,10 @@ router.put('/:id', function(req, res) {
         gender: profile.gender,
         heightFeet: profile.heightFeet,
         heightInches: profile.heightInches,
-        weight: profile.weight
+        weight: profile.weight,
+        accountType: profile.accountType,
+        accountStatus: profile.accountStatus
+
     }},
     {new: true}, function(err, doc) {
       if (err) {

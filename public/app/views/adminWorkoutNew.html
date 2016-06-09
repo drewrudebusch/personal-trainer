@@ -42,14 +42,14 @@
                  min="1"
                  ng-model="warmup.repsGoal">
               <a class="text-danger editProfileInline" ng-click="removeExercise('warmup', warmup.exerciseId)">
-                <span class="glyphicon glyphicon-minus-sign" style="font-size: 18px;"></span>
+                <span class="glyphicon glyphicon-minus-sign addItemSmall"></span>
               </a>
               <a class="text-success editProfileInline" ng-show="$last" ng-click="addNewExercise('warmup')">
-                <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+                <span class="glyphicon glyphicon-plus-sign addItemSmall"></span>
               </a>
             </div>
             <a class="text-success editProfileInline" ng-show="workout.warmups.length === 0" ng-click="addNewExercise('warmup')">
-              <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+              <span class="glyphicon glyphicon-plus-sign addItemSmall"></span>
             </a>
           </div>       
         </div>
@@ -83,14 +83,14 @@
                  min="1"
                  ng-model="workout.repsGoal">
               <a class="text-danger editProfileInline" ng-click="removeExercise('workout', workout.exerciseId)">
-                <span class="glyphicon glyphicon-minus-sign" style="font-size: 18px;"></span>
+                <span class="glyphicon glyphicon-minus-sign addItemSmall"></span>
               </a>
               <a class="text-success editProfileInline" ng-show="$last" ng-click="addNewExercise('workout')">
-                <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+                <span class="glyphicon glyphicon-plus-sign addItemSmall"></span>
               </a>
             </div>
             <a class="text-success editProfileInline" ng-show="workout.workouts.length === 0" ng-click="addNewExercise('workout')">
-              <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+              <span class="glyphicon glyphicon-plus-sign addItemSmall"></span>
             </a>
           </div>
         </div>
@@ -124,25 +124,25 @@
                  min="1"
                  ng-model="cooldown.repsGoal">
               <a class="text-danger editProfileInline" ng-click="removeExercise('cooldown', cooldown.exerciseId)">
-                <span class="glyphicon glyphicon-minus-sign" style="font-size: 18px;"></span>
+                <span class="glyphicon glyphicon-minus-sign addItemSmall"></span>
               </a>
               <a class="text-success editProfileInline" ng-show="$last" ng-click="addNewExercise('cooldown')">
-                <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+                <span class="glyphicon glyphicon-plus-sign addItemSmall"></span>
               </a>
             </div>
             <a class="text-success editProfileInline" ng-show="workout.cooldowns.length === 0" ng-click="addNewExercise('cooldown')">
-                <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
-              </a>
+              <span class="glyphicon glyphicon-plus-sign addItemSmall"></span>
+            </a>
           </div>
         </div>
+        <div class="form-group">
+          <select class="form-control" ng-model="workout.userId">
+            <option ng-repeat="user in users" value="{{user.id}}">{{user.name}}</option>
+          </select>
+        </div>
+        <a href="/admin/workouts" class="btn btn-primary profile-button"> Back to Workouts</a>
+        <a href="" class="btn btn-success profile-button" ng-click="createWorkout()"> Create Workout</a>
       </div>
-      <div class="form-group">
-        <select class="form-control" ng-model="workout.userId">
-          <option ng-repeat="user in users" value="{{user.id}}">{{user.name}}</option>
-        </select>
-      </div>
-      <a href="/admin/workouts" class="btn btn-primary profile-button"> Back to Workouts</a>
-      <a href="" class="btn btn-success profile-button" ng-click="createWorkout()"> Create Workout</a>
     </form>
   </div>
 </div>
