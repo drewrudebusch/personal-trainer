@@ -115,9 +115,11 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   }
 
   $scope.userSignup = function() {
+    console.log('User Signup should be firing');
     $http.post('/api/users', $scope.user).then(function success(res) {
+      console.log('response: ', res);
     }, function error(res) {
-      console.log(res);
+      console.log('error: ', res);
     });
     $scope.userLogin();
   }
