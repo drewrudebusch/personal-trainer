@@ -3,7 +3,7 @@
     <h1 class="pageHeader">Create Workout</h1>
     <form ng-submit="createExercise()">
       <div class="form-group">
-        <label for="title">Title</label>
+        <label for="title"  ng-click="printWorkout()">Title</label>
         <input type="text" class="form-control" id="newWorkoutTitle" ng-model="workout.title">
       </div>
       <div class="form-group">
@@ -140,6 +140,10 @@
             <option ng-repeat="user in users" value="{{user.id}}">{{user.name}}</option>
           </select>
         </div>
+        <div class="form-group" ng-show="workout.userId !== 'template'">
+          <label for="workoutDate">Workout Date</label>
+          <input type="text" data-format="yyyy-MM-dd" class="form-control" ng-model="workout.date">
+        </div>
         <a href="/admin/workouts" class="btn btn-primary profile-button"> Back to Workouts</a>
         <a href="" class="btn btn-success profile-button" ng-click="createWorkout()"> Create Workout</a>
       </div>
@@ -147,3 +151,21 @@
   </div>
 </div>
 
+<!-- 
+Bootstrap Date Picker
+<div class="well">
+  <div id="datetimepicker4" class="input-append">
+    <input data-format="yyyy-MM-dd" type="text"></input>
+    <span class="add-on">
+      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      </i>
+    </span>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function() {
+    $('#datetimepicker4').datetimepicker({
+      pickTime: false
+    });
+  });
+</script> -->

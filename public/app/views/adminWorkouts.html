@@ -2,7 +2,7 @@
   <div class="well pageContent">
     <h1 class="pageHeader">WORKOUTS</h1>
     <div class="myFormGroup">
-      <p ng-repeat="workout in workouts"><a href="/admin/workouts/view/1"> {{ workout.title }}</a></p>
+      <p ng-repeat="workout in workouts | filter:isTemplate"><a href="/admin/workouts/view/{{workout._id}}"> {{ workout.title }}</a></p>
     </div>
     
   </div>

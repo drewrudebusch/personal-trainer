@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
+var moment = require('moment');
 var app = express();
 
 var secret = process.env.SECRET;

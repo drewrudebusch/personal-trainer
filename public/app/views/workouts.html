@@ -13,9 +13,9 @@
       </a>
       <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
-          <p ng-hide="if (workouts)">No Upcoming Workouts</p>
+          <p ng-hide="workouts.length > 0">No Upcoming Workouts</p>
           <a href="/profile/workouts/{{workout._id}}"
-             ng-repeat="workout in workouts | filter:upcoming"> {{workout.title}}</a>
+             ng-repeat="workout in workouts"> {{workout.title}}</a>
         </div>
       </div>
       <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
