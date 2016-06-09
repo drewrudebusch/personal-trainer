@@ -28,7 +28,7 @@ angular.module('PersonalTrainerServices', ['ngResource'])
 
 .factory('User', ['$resource', function($resource) {
   return $resource('/api/users/:id', { id: '@_id' }, {
-    query: {method: 'GET', cache: false, isArray: true},
+    query: {method: 'GET', cache: true, isArray: true},
     get: {method: 'GET', cache: false, isArray: false},
     update: {method: 'PUT', cache: false, isArray: false}
   });

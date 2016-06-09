@@ -80,8 +80,8 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   }
 }])
 
-.controller('AuthCtrl', ['$scope', '$http', '$location', 'Auth', '$rootScope',
-                function($scope, $http, $location, Auth, $rootScope) {
+.controller('AuthCtrl', ['$scope', '$http', '$location', 'Auth', '$rootScope', 'Cache',
+                function($scope, $http, $location, Auth, $rootScope, Cache) {
   $scope.user = {
     name: '',
     email: '',
@@ -117,6 +117,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
 
   $scope.userSignup = function() {
     console.log('User Signup should be firing');
+    Cache.invalidate('/api/user');
     $http.post('/api/users', $scope.user).then(function success(res) {
       console.log('response: ', res);
     }, function error(res) {
@@ -152,6 +153,17 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
     }, function error(data) {
       console.log(data);
     });
+
+  $scope.workouts = [{
+    _id: '57573ce5fde5b9252bad8555',
+    title: 'Monday Strength Routine',
+    date: '2016-06-22',
+    description: 'Bench, Squat, Cleans, Sit-ups',
+    warmups: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 10, 'note': 'get warm'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 20, 'note': 'get warmer'}],
+    workouts: [{'_id': '575743314bb2e27835207b99', 'sets': 2, 'reps': 20, 'note': 'try hard'}, {'_id': '57573ce5fde5b9252bad8943', 'sets': 2, 'reps': 10, 'note': 'try harder'}],
+    cooldowns: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 5, 'note': 'start cooling down'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 10, 'note': 'cooled down'}],
+    userId: 'template'
+  }];
 }])
 .controller('AdminWorkoutsCtrl', ['$scope', 'User', 'Workout', 'Exercise', function($scope, User, Workout, Exercise) {
   $scope.workouts = [];
@@ -204,6 +216,124 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   };
 }])
 
+.controller('AdminWorkoutNewCtrl', ['$scope', 'Auth', 'User', '$http', '$location', 'Exercise',
+                    function($scope, Auth, User, $http, $location, Exercise) {
+  $scope.currentUser = Auth.currentUser();
+
+  Exercise.query(function success(data) {
+      console.log(data);
+      $scope.exercises = data;
+  })
+  User.query(function success(data) {
+      $scope.users = data;
+      $scope.users.unshift({'_id': 'template', 'name': 'template'})
+      console.log('Users: ', $scope.users);
+  })
+  
+  $scope.workout = {
+    _id: '',
+    title: '',
+    date: '',
+    description: '',
+    warmups: [],
+    workouts: [],
+    cooldowns: [],
+    userId: ''
+  };
+
+  // $scope.showImageLabel = function (image) {
+  //   console.log('showImageLabel')
+  //   return image.id === $scope.exercise.images[0].id;
+  // };
+  // $scope.showAddImage = function(image) {
+  //   return image.id === $scope.exercise.images[0].id;
+  // };
+  $scope.addNewExercise = function(type) {
+    if (type === 'warmup') {
+      if ($scope.workout.warmups.length > 0) {
+        var newItemNo = $scope.workout.warmups[$scope.workout.warmups.length-1].id + 1;
+        $scope.workout.warmups.push({'id':newItemNo, 'exerciseId': ''});
+      } else {
+        $scope.workout.warmups.push({'id': 1, 'exerciseId': ''});
+      }
+    } else if (type === 'workout') {
+      if ($scope.workout.workouts.length > 0) {
+        var newItemNo = $scope.workout.workouts[$scope.workout.workouts.length-1].id + 1;
+        $scope.workout.workouts.push({'id':newItemNo, 'exerciseId': ''});
+      } else {
+        $scope.workout.workouts.push({'id': 1, 'exerciseId': ''});
+      }
+    } else if (type === 'cooldown') {
+      if ($scope.workout.cooldowns.length > 0) {
+        var newItemNo = $scope.workout.cooldowns[$scope.workout.cooldowns.length-1].id + 1;
+        $scope.workout.cooldowns.push({'id':newItemNo, 'exerciseId': ''});
+      } else {
+        $scope.workout.cooldowns.push({'id':1, 'exerciseId': ''});
+      }
+    } else {
+      console.log('ruh roh! exercise not added')
+    }
+    // console.log('$scope.exercise: ', $scope.exercise)
+    // console.log(newItemNo);
+    // $scope.exercise.images.push({'id':newItemNo});
+  };
+  $scope.removeExercise = function(type, exerciseId) {
+    console.log('type: ', type);
+    console.log('exercise: ', exerciseId);
+    var removeIndex;
+    if (type === 'warmup') {
+      for (var i = 0; i < $scope.workout.warmups.length; i++) {
+        if ($scope.workout.warmups[i].exerciseId === exerciseId) {
+          removeIndex = i;
+          break;
+        }
+      }
+      $scope.workout.warmups.splice(removeIndex, 1);
+    } else if (type === 'workout') {
+      for (var i = 0; i < $scope.workout.warmups.length; i++) {
+        if ($scope.workout.workouts[i].exerciseId === exerciseId) {
+          removeIndex = i;
+          break;
+        }
+      }
+      $scope.workout.workouts.splice(removeIndex, 1);
+    } else if (type === 'cooldown') {
+      for (var i = 0; i < $scope.workout.warmups.length; i++) {
+        if ($scope.workout.cooldowns[i].exerciseId === exerciseId) {
+          removeIndex = i;
+          break;
+        }
+      }
+      $scope.workout.cooldowns.splice(removeIndex, 1);
+    } else {
+      console.log('ruh roh! Remove Exercise Failure');
+    }
+  }
+
+  $scope.createWorkout = function() {
+    console.log($scope.workout)
+    $scope.workout.warmups = $scope.workout.warmups.filter(function (warmup) {
+      return warmup.exerciseId != '';
+    });
+    $scope.workout.workouts = $scope.workout.workouts.filter(function (workout) {
+      return workout.exerciseId != '';
+    });
+    $scope.workout.cooldowns = $scope.workout.cooldowns.filter(function (cooldown) {
+      return cooldown.exerciseId != '' && cooldown.repsGoal > 0 && cooldown.setsGoal > 0
+    });
+    console.log($scope.workout)
+    // Remove all empty warmup, workout, and cooldown objects from array
+    // Exercise.save($scope.exercise, function success(data) {
+    //   console.log(data);
+    //   Cache.invalidate('/api/exercises');
+    //   $location.path('/exercises');
+    // }, function error(data) {
+    //   console.log(data);
+    // });
+  }
+      // {'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 10, 'note': 'get warm'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 20, 'note': 'get warmer'}
+}])
+
 .controller('AdminUsersCtrl', ['$scope', 'User', function($scope, User) {
   $scope.users = [];
 
@@ -218,7 +348,6 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   $scope.sortReverse  = false;  // set the default sort order
   $scope.searchUsers   = '';     // set the default search/filter term
 }])
-
 
 .controller('ProfileCtrl', ['$scope', 'Auth', 'User', '$http', '$location', '$rootScope', '$stateParams',
                     function($scope, Auth, User, $http, $location, $rootScope, $stateParams) {
@@ -273,6 +402,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
     });
   }
 }])
+
 .controller('WorkoutCtrl', ['$scope', 'Auth', 'User', '$http', '$location',
                     function($scope, Auth, User, $http, $location) {
   $scope.currentUser = Auth.currentUser();
@@ -307,16 +437,12 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   $scope.cooldownExpanded = false;
 
   $scope.expanded = function(type) {
-    console.log('type: ', type);
     if (type == 'warmup') {
       $scope.warmupExpanded = !$scope.warmupExpanded;
-      console.log('warmupExpand: ', $scope.warmupExpanded);
     } else if (type == 'workout') {
       $scope.workoutExpanded = !$scope.workoutExpanded;
-      console.log('workoutExpand: ', $scope.workoutExpanded);
     } else if (type === 'cooldown') {
       $scope.cooldownExpanded = !$scope.cooldownExpanded;
-      console.log('cooldownExpand: ', $scope.cooldownExpanded);
     } else { console.log('Ruh roh!');}
   }
 
@@ -330,5 +456,4 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
     cooldowns: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 5, 'note': 'start cooling down'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 10, 'note': 'cooled down'}],
     userId: 'template'
   };
-
 }])

@@ -1,0 +1,149 @@
+<div class="container-fluid">
+  <div id="createExercise" class="well pageContent">
+    <h1 class="pageHeader">Create Workout</h1>
+    <form ng-submit="createExercise()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="newWorkoutTitle" ng-model="workout.title">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="newExerciseDescription" ng-model="workout.description"></textarea>
+      </div>
+      <div class="panel-group" id="workoutAccordion" role="tablist"
+       aria-multiselectable="true">
+        <a class="collapsed" role="button" data-toggle="collapse"
+           data-parent="#workoutAccordion" data-target="#collapseWarmup"
+           aria-expanded="false" aria-controls="collapseWarmup">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                Warmup &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+              </h4>
+            </div>
+          </div>
+        </a>
+        <div id="collapseWarmup" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <div class="form-group" ng-repeat="warmup in workout.warmups" >
+              <select class="form-control" ng-model="warmup.exerciseId">
+                <option ng-repeat="exercise in exercises" value="{{exercise._id}}">{{exercise.name}}</option>
+              </select>
+              <label>Sets</label>
+              <input type="number"
+                 id="editProfileHeightFeet"
+                 class="form-control editProfileInline shortForm"
+                 min="1"
+                 ng-model="warmup.setsGoal">
+              <label>Reps</label>
+              <input type="number"
+                 id="editProfileHeightFeet"
+                 class="form-control editProfileInline shortForm"
+                 min="1"
+                 ng-model="warmup.repsGoal">
+              <a class="text-danger editProfileInline" ng-click="removeExercise('warmup', warmup.exerciseId)">
+                <span class="glyphicon glyphicon-minus-sign" style="font-size: 18px;"></span>
+              </a>
+              <a class="text-success editProfileInline" ng-show="$last" ng-click="addNewExercise('warmup')">
+                <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+              </a>
+            </div>
+            <a class="text-success editProfileInline" ng-show="workout.warmups.length === 0" ng-click="addNewExercise('warmup')">
+              <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+            </a>
+          </div>       
+        </div>
+        <a class="collapsed" role="button" data-toggle="collapse" 
+           data-parent="#workoutAccordion" data-target="#collapseWorkout"
+           aria-expanded="false" aria-controls="collapseWorkout"> 
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                Workout &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+              </h4>
+            </div>
+          </div>
+        </a>
+        <div id="collapseWorkout" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <div class="form-group" ng-repeat="workout in workout.workouts" >
+              <select class="form-control" ng-model="workout.exerciseId">
+                <option ng-repeat="exercise in exercises" value="{{exercise._id}}">{{exercise.name}}</option>
+              </select>
+              <label>Sets</label>
+              <input type="number"
+                 id="editProfileHeightFeet"
+                 class="form-control editProfileInline shortForm"
+                 min="1"
+                 ng-model="workout.setsGoal">
+              <label>Reps</label>
+              <input type="number"
+                 id="editProfileHeightFeet"
+                 class="form-control editProfileInline shortForm"
+                 min="1"
+                 ng-model="workout.repsGoal">
+              <a class="text-danger editProfileInline" ng-click="removeExercise('workout', workout.exerciseId)">
+                <span class="glyphicon glyphicon-minus-sign" style="font-size: 18px;"></span>
+              </a>
+              <a class="text-success editProfileInline" ng-show="$last" ng-click="addNewExercise('workout')">
+                <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+              </a>
+            </div>
+            <a class="text-success editProfileInline" ng-show="workout.workouts.length === 0" ng-click="addNewExercise('workout')">
+              <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+            </a>
+          </div>
+        </div>
+        <a class="collapsed" role="button" data-toggle="collapse"
+           data-parent="#workoutAccordion" data-target="#collapseCooldown"
+           aria-expanded="false" aria-controls="collapseCooldown">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                Cooldown &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+              </h4>
+            </div>
+          </div>
+        </a>
+        <div id="collapseCooldown" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <div class="form-group" ng-repeat="cooldown in workout.cooldowns" >
+              <select class="form-control" ng-model="cooldown.exerciseId">
+                <option ng-repeat="exercise in exercises" value="{{exercise._id}}">{{exercise.name}}</option>
+              </select>
+              <label>Sets</label>
+              <input type="number"
+                 id="editProfileHeightFeet"
+                 class="form-control editProfileInline shortForm"
+                 min="1"
+                 ng-model="cooldown.setsGoal">
+              <label>Reps</label>
+              <input type="number"
+                 id="editProfileHeightFeet"
+                 class="form-control editProfileInline shortForm"
+                 min="1"
+                 ng-model="cooldown.repsGoal">
+              <a class="text-danger editProfileInline" ng-click="removeExercise('cooldown', cooldown.exerciseId)">
+                <span class="glyphicon glyphicon-minus-sign" style="font-size: 18px;"></span>
+              </a>
+              <a class="text-success editProfileInline" ng-show="$last" ng-click="addNewExercise('cooldown')">
+                <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+              </a>
+            </div>
+            <a class="text-success editProfileInline" ng-show="workout.cooldowns.length === 0" ng-click="addNewExercise('cooldown')">
+                <span class="glyphicon glyphicon-plus-sign" style="font-size: 18px;"></span>
+              </a>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <select class="form-control" ng-model="workout.userId">
+          <option ng-repeat="user in users" value="{{user.id}}">{{user.name}}</option>
+        </select>
+      </div>
+      <a href="/admin/workouts" class="btn btn-primary profile-button"> Back to Workouts</a>
+      <a href="" class="btn btn-success profile-button" ng-click="createWorkout()"> Create Workout</a>
+    </form>
+  </div>
+</div>
+

@@ -11,6 +11,10 @@ body {
     margin-bottom: 5px;
   }*/
 }
+.shortForm {
+  width: 50px;
+  margin: 10px 5px;
+}
 .panel-body {
   background-color: #F8F8F8;
 }
