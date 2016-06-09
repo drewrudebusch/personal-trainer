@@ -34,7 +34,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
   }
 }])
 
-.controller('ExerciseNewCtrl', ['$scope', '$location', 'Exercise', function($scope, $location, Exercise) {
+.controller('ExerciseNewCtrl', ['$scope', '$location', 'Exercise', 'Cache', function($scope, $location, Exercise, Cache) {
   $scope.exercise = {
     name: '',
     description: '',
@@ -72,6 +72,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
     console.log($scope.exercise)
     Exercise.save($scope.exercise, function success(data) {
       console.log(data);
+      Cache.invalidate('/api/exercises');
       $location.path('/exercises');
     }, function error(data) {
       console.log(data);
@@ -275,5 +276,59 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices'])
 .controller('WorkoutCtrl', ['$scope', 'Auth', 'User', '$http', '$location',
                     function($scope, Auth, User, $http, $location) {
   $scope.currentUser = Auth.currentUser();
+
+  Exercise.query(function success(data) {
+      console.log(data);
+      $scope.exercises = data;
+  })
+
+  $scope.workouts = [{
+    _id: '57573ce5fde5b9252bad8555',
+    title: 'Monday Strength Routine',
+    date: '2016-06-22',
+    description: 'Bench, Squat, Cleans, Sit-ups',
+    warmups: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 10, 'note': 'get warm'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 20, 'note': 'get warmer'}],
+    workouts: [{'_id': '575743314bb2e27835207b99', 'sets': 2, 'reps': 20, 'note': 'try hard'}, {'_id': '57573ce5fde5b9252bad8943', 'sets': 2, 'reps': 10, 'note': 'try harder'}],
+    cooldowns: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 5, 'note': 'start cooling down'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 10, 'note': 'cooled down'}],
+    userId: 'template'
+  }];
+}])
+
+.controller('WorkoutShowCtrl', ['$scope', 'Auth', 'User', '$http', '$location', 'Exercise',
+                    function($scope, Auth, User, $http, $location, Exercise) {
+  $scope.currentUser = Auth.currentUser();
+
+  Exercise.query(function success(data) {
+      console.log(data);
+      $scope.exercises = data;
+  })
+  $scope.warmupExpanded = false;
+  $scope.workoutExpanded = false;
+  $scope.cooldownExpanded = false;
+
+  $scope.expanded = function(type) {
+    console.log('type: ', type);
+    if (type == 'warmup') {
+      $scope.warmupExpanded = !$scope.warmupExpanded;
+      console.log('warmupExpand: ', $scope.warmupExpanded);
+    } else if (type == 'workout') {
+      $scope.workoutExpanded = !$scope.workoutExpanded;
+      console.log('workoutExpand: ', $scope.workoutExpanded);
+    } else if (type === 'cooldown') {
+      $scope.cooldownExpanded = !$scope.cooldownExpanded;
+      console.log('cooldownExpand: ', $scope.cooldownExpanded);
+    } else { console.log('Ruh roh!');}
+  }
+
+  $scope.workout = {
+    _id: '57573ce5fde5b9252bad8555',
+    title: 'Monday Strength Routine',
+    date: '2016-06-22',
+    description: 'Bench, Squat, Cleans, Sit-ups',
+    warmups: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 10, 'note': 'get warm'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 20, 'note': 'get warmer'}],
+    workouts: [{'_id': '575743314bb2e27835207b99', 'sets': 2, 'reps': 20, 'note': 'try hard'}, {'_id': '57573ce5fde5b9252bad8943', 'sets': 2, 'reps': 10, 'note': 'try harder'}],
+    cooldowns: [{'_id': '57573ce5fde5b9252bad8943', 'sets': 1, 'reps': 5, 'note': 'start cooling down'}, {'_id': '575743314bb2e27835207b99', 'sets': 1, 'reps': 10, 'note': 'cooled down'}],
+    userId: 'template'
+  };
 
 }])

@@ -1,19 +1,28 @@
 angular.module('PersonalTrainerServices', ['ngResource'])
 .factory('Exercise', ['$resource', function($resource) {
   return $resource('/api/exercises/:id', { id: '@_id'}, {
-    query: {method: 'GET', cache: false, isArray: true},
+    query: {method: 'GET', cache: true, isArray: true},
     get: {method: 'GET', cache: false, isArray: false},
     update: {method: 'PUT', cache: false, isArray: false},
-    delete: {method:'DELETE', cache: false}
+    delete: {method:'DELETE'}
   });
 }])
+
+.factory('Cache', function ($cacheFactory) {
+  var $httpDefaultCache = $cacheFactory.get('$http');
+  return {
+    invalidate: function (key) {
+        $httpDefaultCache.remove(key);
+    }
+  }
+})
 
 .factory('Workout', ['$resource', function($resource) {
   return $resource('/api/workouts/:id', { id: '@_id'}, {
     query: {method: 'GET', cache: false, isArray: true},
     get: {method: 'GET', cache: false, isArray: false},
     update: {method: 'PUT', cache: false, isArray: false},
-    delete: {method:'DELETE', cache: false}
+    delete: {method:'DELETE'}
   });
 }])
 

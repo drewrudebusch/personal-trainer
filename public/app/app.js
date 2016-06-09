@@ -107,6 +107,11 @@ app.config([
     templateUrl: 'app/views/workouts.html',
     controller: 'WorkoutCtrl'
   })
+  .state('profileWorkoutShow', {
+    url: '/profile/workouts/:id',
+    templateUrl: 'app/views/workoutShow.html',
+    controller: 'WorkoutShowCtrl'
+  })
   .state('404', {
     url: '/404',
     templateUrl: 'app/views/404.html'
