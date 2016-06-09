@@ -10,8 +10,8 @@ var secret = process.env.SECRET;
 
 var mongoose = require('mongoose');
 var User = require('./models/user');
-mongoose.connect('mongodb://localhost/personal-trainer');
-// mongoose.connect("mongodb://"+process.env.MONGO_USER+":"+process.env.MONGO_PASSWORD+"@ds011314.mlab.com:11314/personal-trainer")
+// mongoose.connect('mongodb://localhost/personal-trainer');
+mongoose.connect("mongodb://"+process.env.MONGO_USER+":"+process.env.MONGO_PASSWORD+"@ds011314.mlab.com:11314/personal-trainer")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
