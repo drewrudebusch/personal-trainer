@@ -4,12 +4,12 @@ app.config(['$httpProvider', function($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
 }])
 
-app.run(function($rootScope, $location) {
+app.run(function($rootScope, $location, Auth) {
   $rootScope.$on('$viewContentLoading', function(event, viewConfig){ 
-    $rootScope.location = $location.path()    
+    $rootScope.location = $location.path();
   });
   $rootScope.$on('$stateChangeSuccess', function(event) {
-    $rootScope.location = $location.path()
+    $rootScope.location = $location.path();
   });
 })
 

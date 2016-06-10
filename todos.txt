@@ -1,0 +1,36 @@
+[] Fix redirect upon creation of new workout
+[] Check date being saved in new workout as an object
+[] Build out "past workouts" section of /profile/workouts
+[] Pin action buttons to the bottom of viewport
+[] Format/style responsive view for larger screens
+[] Format/style responsive for mobile when keyboard is presented
+[] Restrict duplicate user signups
+[] Restrict admin from changing to a duplicate email address
+[] Change 404 routing with $injector
+[] Update query cache refresh
+[] Add flash messages/alerts
+[] Fix body padding on homepage
+[] Validate database calls to replace 'all' queries with filtered backend results
+[] Change accordion arrow stylings
+  [] /admin/workouts/view/:id
+  [] /admin/workouts/new
+  [] /profile/workouts 
+  [] /profile (gym details)
+  [] /admin/users/view/:id
+[] Add date picker to /admin/workouts/new
+[] Add 'assign to user' functionality to workout templates
+[] Change logo hyperlink to /profile/workouts
+[] Add user dashboard
+[] Add functionality for 'completing' workouts
+  [] Add workout status to data model (status, date completed)
+  [] Add "complete workout" button
+[] Improve functionality for 'completing' workouts
+  [] Add sets and reps completed
+  [] Modify 'complete workout' functionality to include saving sets/reps
+[] Add gym/contact details (?)
+[] Force only one accordian to open (?) 
+
+[] Refactor profile and workout views and controllers
+[] Refactor with UI Bootstrap (Angular)
+
+[] Refactor to react/react native 

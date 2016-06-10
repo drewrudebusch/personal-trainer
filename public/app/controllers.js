@@ -5,8 +5,17 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
   $scope.currentUser = Auth.currentUser();
 }])
 
-.controller('ExercisesCtrl', ['$scope', '$stateParams', 'Exercise', function($scope, $stateParams, Exercise) {
+.controller('ExercisesCtrl', ['$scope', '$stateParams', 'Exercise', 'Auth', function($scope, $stateParams, Exercise, Auth) {
   $scope.exercises = [];
+
+  $scope.auth = Auth;
+  $scope.currentUser = Auth.currentUser();
+
+  $scope.isAdmin = function(user){
+      if (user._doc.accountType === 'Admin') {
+        return true;
+      } return false;
+    }
 
   Exercise.query(function success(data) {
     console.log(data);
@@ -16,8 +25,19 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
   });
 }])
 
-.controller('ExerciseShowCtrl', ['$scope', '$stateParams', 'Exercise', '$location', function($scope, $stateParams, Exercise, $location) {
+.controller('ExerciseShowCtrl', ['$scope', '$stateParams', 'Exercise', '$location', 'Auth', function($scope, $stateParams, Exercise, $location, Auth) {
   $scope.exercise = {};
+
+  $scope.auth = Auth;
+  $scope.currentUser = Auth.currentUser();
+
+  $scope.isAdmin = function(user){
+    if (user) {
+      if (user._doc.accountType === 'Admin') {
+        return true;
+      } return false;
+    }
+  }
 
   Exercise.get({id: $stateParams.id}, function success(data) {
     $scope.exercise = data;
@@ -95,19 +115,20 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
     newPw: ''
   }
 
+  $scope.Auth = Auth;
+      $scope.currentUser = Auth.currentUser();
+      if ($scope.currentUser) {
+        $scope.currentUserFirstName = $scope.currentUser._doc.name.split(' ')[0]
+          // Only allow user to see the sign in page if not currently signed in
+        // if ($location.path() === '/') {
+        //   $scope.location = '/home';
+        //   $location.path('/home')
+        // }
+      }
+
   console.log('$scope.location: ', $scope.location);
   console.log('$rootScope.location: ', $rootScope.location);
   // $scope.location = $location.path()
-  $scope.Auth = Auth;
-  $scope.currentUser = Auth.currentUser();
-  if ($scope.currentUser) {
-    $scope.currentUserFirstName = $scope.currentUser._doc.name.split(' ')[0]
-      // Only allow user to see the sign in page if not currently signed in
-    // if ($location.path() === '/') {
-    //   $scope.location = '/home';
-    //   $location.path('/home')
-    // }
-  }
 
   $scope.logout = function() {
     Auth.removeToken();
@@ -117,10 +138,13 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
   }
 
   $scope.isAdmin = function(user){
+    if (user) {
       if (user._doc.accountType === 'Admin') {
         return true;
-      } return false;
+      }
     }
+    return false;
+  }
 
   $scope.userSignup = function() {
     console.log('User Signup should be firing');
@@ -129,18 +153,26 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
     $scope.user.accountStatus = 'Active'
     $http.post('/api/users', $scope.user).then(function success(res) {
       console.log('response: ', res);
+      $scope.userLogin();
     }, function error(res) {
       console.log('error: ', res);
     });
-    $scope.userLogin();
   }
 
   $scope.userLogin = function() {
-    console.log('$scope.user', $scope.user);
     $http.post('/api/auth', $scope.user).then(function success(res) {
       Auth.saveToken(res.data.token);
+      console.log('currentUser Before: ', $scope.currentUser);
       $scope.currentUser = Auth.currentUser();
-      // $scope.location = '/home'
+      if ($scope.currentUser) {
+        $scope.currentUserFirstName = $scope.currentUser._doc.name.split(' ')[0]
+          // Only allow user to see the sign in page if not currently signed in
+        // if ($location.path() === '/') {
+        //   $scope.location = '/home';
+        //   $location.path('/home')
+        // }
+      }
+      console.log('currentUser After: ', $scope.currentUser);
       $location.path('/profile/workouts');
     }, function error(res) {
       console.log(res);
@@ -219,7 +251,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
     }, function error(data) {
       console.log(data);
     });
-  
+
   $scope.exerciseIndex = function(exercise) {
       console.log('exercise: ', exercise);
       var index = '';
@@ -231,7 +263,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
       }
 }])
 
-.controller('AdminWorkoutNewCtrl', ['$scope', 'Auth', 'User', 'Exercise', 'Workout', '$http', 'Cache', '$location', function($scope, Auth, User, Exercise, Workout, $http, $location, Cache) {
+.controller('AdminWorkoutNewCtrl', ['$scope', 'Auth', 'User', 'Exercise', 'Workout', '$http', 'Cache', '$location', function($scope, Auth, User, Exercise, Workout, $http, Cache, $location) {
   $scope.currentUser = Auth.currentUser();
 
   Exercise.query(function success(data) {
@@ -375,7 +407,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
 
   var userId = '';
   var currentLocation = $rootScope.location.split('/')[1]
-  console.log('currentLocation: ', currentLocation);
+  console.log('currentUser: ', $scope.currentUser);
   if (currentLocation === 'profile') {
     userId = $scope.currentUser._doc._id
   } else {
@@ -431,6 +463,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
   $scope.workouts
   Workout.query(function success(data) {
     console.log('workouts: ', data);
+    console.log('currentUser workout load: ', $scope.currentUser)
     // $scope.workouts = data;
     $scope.workouts = data.filter(function (workout) {
       return workout.userId === $scope.currentUser._doc._id;
