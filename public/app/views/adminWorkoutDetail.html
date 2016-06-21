@@ -10,10 +10,9 @@
        aria-multiselectable="true">
     <a class="collapsed" role="button" data-toggle="collapse"
        data-parent="#workoutAccordion" data-target="#collapseWarmup"
-       aria-expanded="false" aria-controls="collapseWarmup" ng-show="workout.warmups.length > 0"
-       ng-click="expanded('warmup')">
+       aria-expanded="false" aria-controls="collapseWarmup" ng-show="workout.warmups.length > 0">
       <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
+        <div class="panel-heading" role="tab" id="headingOne" ng-click="expanded('warmup')">
           <h4 class="panel-title">
             <span ng-class="(warmupExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Warmup
           </h4>
@@ -55,10 +54,9 @@
     </div>
     <a class="collapsed" role="button" data-toggle="collapse"
        data-parent="#workoutAccordion" data-target="#collapseCooldown"
-       aria-expanded="false" aria-controls="collapseCooldown" ng-show="workout.cooldowns.length"
-       ng-click="expanded('cooldown')">
+       aria-expanded="false" aria-controls="collapseCooldown" ng-show="workout.cooldowns.length">
       <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingTwo">
+        <div class="panel-heading" role="tab" id="headingTwo" ng-click="expanded('cooldown')">
           <h4 class="panel-title">
             <span ng-class="(cooldownExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span>Cooldown
           </h4>

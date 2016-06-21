@@ -3,7 +3,7 @@ var bcrypt   = require('bcrypt');
 
 var UserSchema = mongoose.Schema({
   name: String,
-  email: String,
+  email: {type: String, unique: true},
   password: String,
   accountType: String,
   gender: String,
@@ -12,6 +12,8 @@ var UserSchema = mongoose.Schema({
   weight: Number,
   accountStatus: String
 });
+
+UserSchema.path('email').index({unique: true});
 
 UserSchema.set('toJSON', {
   transform: function(doc, ret, options) {

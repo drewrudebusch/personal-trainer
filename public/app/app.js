@@ -19,7 +19,12 @@ app.config([
   '$locationProvider',
   function($stateProvider, $urlRouterProvider, $locationProvider) {
 
-  $urlRouterProvider.otherwise('/404');
+  // $urlRouterProvider.otherwise('/404');
+  $urlRouterProvider.otherwise(function($injector, $location){
+    var state = $injector.get('$state');
+    state.go('404');
+    return $location.path();
+  });
 
   $stateProvider
   .state('signin', {
@@ -113,7 +118,6 @@ app.config([
     controller: 'WorkoutShowCtrl'
   })
   .state('404', {
-    url: '/404',
     templateUrl: 'app/views/404.html'
   });
 

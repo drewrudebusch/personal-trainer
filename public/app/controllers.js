@@ -151,11 +151,16 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
     Cache.invalidate('/api/user');
     $scope.user.accountType = 'User';
     $scope.user.accountStatus = 'Active'
-    $http.post('/api/users', $scope.user).then(function success(res) {
-      console.log('response: ', res);
-      $scope.userLogin();
-    }, function error(res) {
-      console.log('error: ', res);
+    $http.post('/api/users', $scope.user).then(
+      function success(res) {
+        console.log('response: ', res);
+        $scope.userLogin();
+    }, 
+      function error(res) {
+        if (res.data.code === 11000) {
+          console.log('Duplicate error caught');
+        }
+        console.log('error: ', res);
     });
   }
 
@@ -261,6 +266,21 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
       // });
       return index
       }
+
+  $scope.warmupExpanded = false;
+  $scope.workoutExpanded = false;
+  $scope.cooldownExpanded = false;
+
+  $scope.expanded = function(type) {
+    if (type == 'warmup') {
+      $scope.warmupExpanded = !$scope.warmupExpanded;
+    } else if (type == 'workout') {
+      $scope.workoutExpanded = !$scope.workoutExpanded;
+    } else if (type === 'cooldown') {
+      $scope.cooldownExpanded = !$scope.cooldownExpanded;
+    } else { console.log('Ruh roh!');}
+  }
+
 }])
 
 .controller('AdminWorkoutNewCtrl', ['$scope', 'Auth', 'User', 'Exercise', 'Workout', '$http', 'Cache', '$location', function($scope, Auth, User, Exercise, Workout, $http, Cache, $location) {
@@ -343,7 +363,6 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
       console.log('ruh roh! Remove Exercise Failure');
     }
   }
-
   $scope.createWorkout = function() {
     console.log($scope.workout)
     $scope.workout.warmups = $scope.workout.warmups.filter(function (warmup) {
@@ -371,6 +390,19 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
   $scope.printWorkout = function() {
     console.log('$scope.workout: ', $scope.workout);
   }
+  $scope.warmupExpanded = false;
+  $scope.workoutExpanded = false;
+  $scope.cooldownExpanded = false;
+
+  $scope.expanded = function(type) {
+    if (type == 'warmup') {
+      $scope.warmupExpanded = !$scope.warmupExpanded;
+    } else if (type == 'workout') {
+      $scope.workoutExpanded = !$scope.workoutExpanded;
+    } else if (type === 'cooldown') {
+      $scope.cooldownExpanded = !$scope.cooldownExpanded;
+    } else { console.log('Ruh roh!');}
+  }
 }])
 
 .controller('AdminUsersCtrl', ['$scope', 'User', function($scope, User) {
@@ -386,6 +418,14 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
   $scope.sortType     = 'name'; // set the default sort type
   $scope.sortReverse  = false;  // set the default sort order
   $scope.searchUsers   = '';     // set the default search/filter term
+
+  $scope.primaryGymExpanded = false;
+
+  $scope.expanded = function(type) {
+    if (type == 'gym') {
+      $scope.primaryGymExpanded = !$scope.primaryGymExpanded;
+    } else { console.log('Ruh roh!');}
+  }
 }])
 
 .controller('ProfileCtrl', ['$scope', 'Auth', 'User', '$http', '$location', '$rootScope', '$stateParams',
@@ -450,6 +490,14 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
       console.log(data);
     });
   }
+
+  $scope.primaryGymExpanded = false;
+
+  $scope.expanded = function(type) {
+    if (type == 'gym') {
+      $scope.primaryGymExpanded = !$scope.primaryGymExpanded;
+    } else { console.log('Ruh roh!');}
+  }
 }])
 
 .controller('WorkoutCtrl', ['$scope', 'Auth', 'User', 'Exercise', 'Workout', '$http', '$location', 'moment', function($scope, Auth, User, Exercise, Workout, $http, $location, moment) {
@@ -487,6 +535,17 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
     //   // });
     //   return index
     //   }
+
+    $scope.upcomingExpanded = true;
+    $scope.pastExpanded = false;
+
+    $scope.expanded = function(type) {
+      if (type == 'upcoming') {
+        $scope.upcomingExpanded = !$scope.upcomingExpanded;
+      } else if (type == 'past') {
+        $scope.pastExpanded = !$scope.pastExpanded;
+      } else { console.log('Ruh roh!');}
+    }
 }])
 
 .controller('WorkoutShowCtrl',

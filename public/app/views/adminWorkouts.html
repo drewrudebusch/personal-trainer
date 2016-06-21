@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="well pageContent">
-    <h1 class="pageHeader">WORKOUTS</h1>
+    <h1 class="pageHeader">WORKOUT TEMPLATES</h1>
     <div class="myFormGroup">
       <p ng-repeat="workout in workouts | filter:isTemplate"><a href="/admin/workouts/view/{{workout._id}}"> {{ workout.title }}</a></p>
     </div>

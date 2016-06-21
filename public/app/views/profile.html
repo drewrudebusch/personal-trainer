@@ -44,9 +44,9 @@
   <div class="panel-group" role="tablist" aria-multiselectable="true">
     <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#userProfileGym" aria-expanded="true" aria-controls="collapseOne">
       <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
+        <div class="panel-heading" role="tab" id="headingOne" ng-click="expanded('gym')">
           <h4 class="panel-title">
-              <strong>Primary Gym:</strong> Rain City Fit &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+            <span ng-class="(primaryGymExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> <strong>Primary Gym:</strong> Rain City Fit
           </h4>
         </div>
       </div>

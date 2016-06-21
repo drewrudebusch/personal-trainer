@@ -16,9 +16,9 @@
            data-parent="#workoutAccordion" data-target="#collapseWarmup"
            aria-expanded="false" aria-controls="collapseWarmup">
           <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
+            <div class="panel-heading" role="tab" id="headingOne" ng-click="expanded('warmup')">
               <h4 class="panel-title">
-                Warmup &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+                <span ng-class="(warmupExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Warmup
               </h4>
             </div>
           </div>
@@ -57,9 +57,9 @@
            data-parent="#workoutAccordion" data-target="#collapseWorkout"
            aria-expanded="false" aria-controls="collapseWorkout"> 
           <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
+            <div class="panel-heading" role="tab" id="headingTwo" ng-click="expanded('workout')">
               <h4 class="panel-title">
-                Workout &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+                <span ng-class="(workoutExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Workout
               </h4>
             </div>
           </div>
@@ -98,9 +98,9 @@
            data-parent="#workoutAccordion" data-target="#collapseCooldown"
            aria-expanded="false" aria-controls="collapseCooldown">
           <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
+            <div class="panel-heading" role="tab" id="headingTwo" ng-click="expanded('cooldown')">
               <h4 class="panel-title">
-                Cooldown &nbsp; <span class="glyphicon glyphicon-chevron-down"></span>
+                <span ng-class="(cooldownExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span>Cooldown
               </h4>
             </div>
           </div>
@@ -136,6 +136,7 @@
           </div>
         </div>
         <div class="form-group">
+          <label>Workout Assignment</label>
           <select class="form-control" ng-model="workout.userId">
             <option ng-repeat="user in users" value="{{user.id}}">{{user.name}}</option>
           </select>
