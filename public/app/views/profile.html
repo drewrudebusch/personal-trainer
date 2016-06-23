@@ -2,72 +2,73 @@
 <div class="container-fluid profileView" id="profileView">
   <div class=" pageContent">
     <div class="well">
-    <h1 class="pageHeader"> User Profile </h1>
-    <div class="form-group">
-      <strong>Name: </strong> {{ profile.name }}
-    </div>
-    <div class="form-group">
-      <strong>Email: </strong> {{ profile.email }}
-    </div>
-    <div ng-hide="profile.gender">
+      <h1 class="pageHeader"> User Profile </h1>
       <div class="form-group">
-        <strong>Gender: </strong> Not Set
+        <strong>Name: </strong> {{ profile.name }}
       </div>
-    </div>
-    <div ng-show="profile.gender">
       <div class="form-group">
-        <strong>Gender: </strong> {{ profile.gender }}
+        <strong>Email: </strong> {{ profile.email }}
       </div>
-    </div>
-    <div ng-hide=" profile.heightFeet && profile.heightFeet > 0">
-      <div class="form-group">
-        <strong>Height: </strong> Not Set
-      </div>
-    </div>
-    <div ng-show="profile.heightFeet && profile.heightFeet > 0">
-      <div class="form-group">
-        <strong>Height: </strong> {{profile.heightFeet}} &apos; {{profile.heightInches}} &quot;
-      </div>
-    </div>
-    <div ng-hide="profile.weight">
-      <div class="form-group">
-        <strong>Weight: </strong> Not Set
-      </div>
-    </div>
-    <div ng-show="profile.weight">
-      <div class="form-group">
-        <strong>Weight: </strong> {{ profile.weight }} lbs.
-      </div>
-    </div>
-      <!-- <p class="help-block">Example block-level help text here.</p> -->
-  </div>
-  <div class="panel-group" role="tablist" aria-multiselectable="true">
-    <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#userProfileGym" aria-expanded="true" aria-controls="collapseOne">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne" ng-click="expanded('gym')">
-          <h4 class="panel-title">
-            <span ng-class="(primaryGymExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> <strong>Primary Gym:</strong> Rain City Fit
-          </h4>
-        </div>
-      </div>
-    </a>
-    <div id="userProfileGym" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
+      <div ng-hide="profile.gender">
         <div class="form-group">
-          <strong>Primary Trainer: </strong> Ben K.
+          <strong>Gender: </strong> Not Set
         </div>
+      </div>
+      <div ng-show="profile.gender">
         <div class="form-group">
-          <strong>Email </strong> benk@raincityfit.com
+          <strong>Gender: </strong> {{ profile.gender }}
         </div>
+      </div>
+      <div ng-hide=" profile.heightFeet && profile.heightFeet > 0">
         <div class="form-group">
-          <strong>Phone </strong> (555) 555-1234
+          <strong>Height: </strong> Not Set
+        </div>
+      </div>
+      <div ng-show="profile.heightFeet && profile.heightFeet > 0">
+        <div class="form-group">
+          <strong>Height: </strong> {{profile.heightFeet}} &apos; {{profile.heightInches}} &quot;
+        </div>
+      </div>
+      <div ng-hide="profile.weight">
+        <div class="form-group">
+          <strong>Weight: </strong> Not Set
+        </div>
+      </div>
+      <div ng-show="profile.weight">
+        <div class="form-group">
+          <strong>Weight: </strong> {{ profile.weight }} lbs.
+        </div>
+      </div>
+        <!-- <p class="help-block">Example block-level help text here.</p> -->
+    </div>
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
+      <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#userProfileGym" aria-expanded="true" aria-controls="collapseOne">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne" ng-click="expanded('gym')">
+            <h4 class="panel-title">
+              <span ng-class="(primaryGymExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> <strong>Primary Gym:</strong> Rain City Fit
+            </h4>
+          </div>
+        </div>
+      </a>
+      <div id="userProfileGym" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+          <div class="form-group">
+            <strong>Primary Trainer: </strong> Ben K.
+          </div>
+          <div class="form-group">
+            <strong>Email </strong> benk@raincityfit.com
+          </div>
+          <div class="form-group">
+            <strong>Phone </strong> (555) 555-1234
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="well">
-    <a href="/profile/edit" class="btn btn-primary profile-button"> Edit Profile </a>
-    <!-- <a href="/profile/change-password" class="btn btn-success profile-button"> Change Password </a> -->
-  </div>
-  </div>
+</div>
+<div class="footer">
+  <a href="/profile/edit"><div class="col-xs-6 footer-btn btn-primary">Edit Profile</div></a>
+  <a href="#"><div class="col-xs-6 footer-btn btn-danger">Change Password</div></a>
+  <!-- <a href="/profile/change-password"> -->
 </div>

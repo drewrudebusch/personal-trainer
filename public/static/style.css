@@ -1,16 +1,13 @@
 body {
   background-color: #302f2f;
   padding-top: 50px;
+  padding-bottom: 20px;
 }
 @media (max-width: 767px) {
   nav li {
     float: right;
     clear: both;
   }
- /* #profileView a {
-    width: 200px;
-    margin-bottom: 5px;
-  }*/
 }
 .top-image {
   margin-top: -50px;
@@ -43,6 +40,17 @@ a:hover, a:visited, a:link, a:active {
   margin-left: 2px;
   margin-bottom: 10px;
 }
+.footer {
+   position:fixed;
+   bottom:0;
+   width:100%;
+   height:50px;   
+   background:blue;
+}
+.footer-btn {
+  text-align: center;
+  padding: 15px 0px; 
+}
 .center-fixed {
   text-align: center;
   background-color: #F8F8F8;
@@ -55,7 +63,7 @@ a:hover, a:visited, a:link, a:active {
   position:fixed;
 }
 #welcome {
-  opacity: .85
+  background-color: rgba(248, 248, 248, .85)
 }
 .pageHeader {
   display: inline-block;

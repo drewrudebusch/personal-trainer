@@ -16,9 +16,8 @@
   <div class="well" ng-show="exercise.video">
     <a href="{{exercise.video}}" target="_blank">{{exercise.name}} video</a>
   </div>
-  
-  <div class="well">
-    <a href="/exercises" class="btn btn-primary profile-button"> &larr; To Exercises</a>
-    <a href="" class="btn btn-danger profile-button" ng-click="deleteExercise(exercise)" ng-show="isAdmin(currentUser)"> Delete Exercise </a>
-  </div>
+</div>
+<div class="footer">
+  <a href="/exercises"><div class="col-xs-6 footer-btn btn-primary">Back to Exercises</div></a>
+  <a href=""><div class="col-xs-6 footer-btn btn-danger" ng-click="deleteExercise(exercise)" ng-show="isAdmin(currentUser)">Delete Exercise</div></a>
 </div>

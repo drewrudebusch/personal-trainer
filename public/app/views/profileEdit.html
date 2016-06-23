@@ -53,14 +53,14 @@
         <label for="editProfileWeight">Weight</label>
         <input type="number" class="form-control inputNumber" id="editProfileWeight" ng-model="profile.weight">
       </div>
-    <!--   <div class="form-group">
-        <input type="submit" class="btn btn-primary"></input>
-      </div> -->
     </div>
-    <div class="well">
-        <a href="/profile" class="btn btn-primary profile-button"> Back to Profile </a>
-        <button type="submit" class="btn btn-success profile-button"> Update Profile </button>
-    </div>
-      <!-- <p class="help-block">Example block-level help text here.</p> -->
   </form>
 </div>
+<div class="footer">
+  <a href="/profile"><div class="col-xs-6 footer-btn btn-primary">Back to Profile</div></a>
+  <input type="submit"
+         form="editProfileForm"
+         class="col-xs-6 footer-btn btn-success"
+         value="Update Profile">
+</div>
+

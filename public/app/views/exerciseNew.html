@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div id="createExercise" class="well pageContent">
   <h1 class="pageHeader">Create Exercise</h1>
-  <form ng-submit="createExercise()">
+  <form id="newExerciseForm" ng-submit="createExercise()">
     <div class="form-group">
       <label for="title">Name</label>
       <input type="text" class="form-control" id="newExerciseName" ng-model="exercise.name">
@@ -27,10 +27,17 @@
       <label for="image">Video Link</label>
       <input type="url" class="form-control" id="newExerciseVideo" placeholder="" ng-model="exercise.video">
     </div>
-      <a href="/exercises" class="btn btn-primary profile-button"> Back to Exercises </a>
-      <button type="submit" class="btn btn-success profile-button"> Create Exercise </button>
+      <!-- <a href="/exercises" class="btn btn-primary profile-button"> Back to Exercises </a>
+      <button type="submit" class="btn btn-success profile-button"> Create Exercise </button> -->
     <!-- <button type="submit" class="btn btn-primary"> Create Exercise </button> -->
   </form>
 </div>
 </div>
-
+<div class="footer">
+  <a href="/exercises"><div class="col-xs-6 footer-btn btn-primary">Back to Exercises</div></a>
+  <input type="submit"
+         form="newExerciseForm"
+         class="col-xs-6 footer-btn btn-success"
+         value="Create Exercise">
+  <!-- <a href=""><div class="col-xs-6 footer-btn btn-success">Create Exercise</div></a> -->
+</div>

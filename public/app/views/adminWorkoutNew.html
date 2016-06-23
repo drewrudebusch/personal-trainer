@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div id="createExercise" class="well pageContent">
     <h1 class="pageHeader">Create Workout</h1>
-    <form ng-submit="createExercise()">
+    <form id="newWorkoutForm" ng-submit="createExercise()">
       <div class="form-group">
         <label for="title"  ng-click="printWorkout()">Title</label>
         <input type="text" class="form-control" id="newWorkoutTitle" ng-model="workout.title">
@@ -145,13 +145,17 @@
           <label for="workoutDate">Workout Date</label>
           <input type="text" data-format="yyyy-MM-dd" class="form-control" ng-model="workout.date">
         </div>
-        <a href="/admin/workouts" class="btn btn-primary profile-button"> Back to Workouts</a>
-        <a href="" class="btn btn-success profile-button" ng-click="createWorkout()"> Create Workout</a>
+        <!-- <a href="" class="btn btn-success profile-button" ng-click="createWorkout()"> Create Workout</a> -->
       </div>
     </form>
   </div>
 </div>
-
+<div class="footer">
+  <a href="/exercises"><div class="col-xs-6 footer-btn btn-primary">Back to Workouts</div></a>
+  <a href="">
+    <div class="col-xs-6 footer-btn btn-success" ng-click="createWorkout()">Create Workout</div>
+  </a>
+</div>
 <!-- 
 Bootstrap Date Picker
 <div class="well">

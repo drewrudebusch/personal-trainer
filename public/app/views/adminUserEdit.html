@@ -1,6 +1,6 @@
 
 <div class="container-fluid profileView">
-  <form class="form-horizontal" style="padding:0;" id="editProfileForm" ng-submit="updateProfile()">
+  <form class="form-horizontal" style="padding:0;" id="adminEditProfileForm" ng-submit="updateProfile()">
     <div class="well pageContent">
     <h1 class="pageHeader"> Edit Account </h1>
       <div class="myFormGroup">
@@ -90,9 +90,14 @@
         </div>
       </div>
     </div>
-    <div class="well">
-      <a href="/admin/users/view/{{ profile._id }}" class="btn btn-primary profile-button"> Back to Account </a>
-      <input type="submit" class="btn btn-success profile-button" value="Save User"></input>
-    </div>
   </form>
+</div>
+<div class="footer">
+  <a href="/admin/users/view/{{ profile._id }}">
+    <div class="col-xs-6 footer-btn btn-primary">Back to Account</div>
+  </a>
+  <input type="submit"
+         form="adminEditProfileForm"
+         class="col-xs-6 footer-btn btn-success"
+         value="Save User">
 </div>
