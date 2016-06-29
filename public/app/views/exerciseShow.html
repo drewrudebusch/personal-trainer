@@ -18,6 +18,13 @@
   </div>
 </div>
 <div class="footer">
-  <a href="/exercises"><div class="col-xs-6 footer-btn btn-primary">Back to Exercises</div></a>
-  <a href=""><div class="col-xs-6 footer-btn btn-danger" ng-click="deleteExercise(exercise)" ng-show="isAdmin(currentUser)">Delete Exercise</div></a>
+  <a href="/exercises">
+    <div ng-class="{'col-xs-6': currentUser.isAdmin, 'col-xs-12': !currentUser.isAdmin}"
+         class="footer-btn btn-primary">Back to Exercises</div>
+ </a>
+  <a href="">
+    <div class="col-xs-6 footer-btn btn-danger"
+         ng-click="deleteExercise(exercise)"
+         ng-show="currentUser.isAdmin">Delete Exercise</div>
+   </a>
 </div>

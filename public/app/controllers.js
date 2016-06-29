@@ -9,13 +9,6 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
   $scope.exercises = [];
 
   $scope.auth = Auth;
-  $scope.currentUser = Auth.currentUser();
-
-  $scope.isAdmin = function(user){
-      if (user._doc.accountType === 'Admin') {
-        return true;
-      } return false;
-    }
 
   Exercise.query(function success(data) {
     console.log(data);
@@ -28,8 +21,8 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
 .controller('ExerciseShowCtrl', ['$scope', '$stateParams', 'Exercise', '$location', 'Auth', function($scope, $stateParams, Exercise, $location, Auth) {
   $scope.exercise = {};
 
-  $scope.auth = Auth;
-  $scope.currentUser = Auth.currentUser();
+  $scope.Auth = Auth;
+  // $scope.currentUser = Auth.currentUser();
 
   $scope.isAdmin = function(user){
     if (user) {
@@ -115,35 +108,37 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
     newPw: ''
   }
 
-  $scope.Auth = Auth;
-      $scope.currentUser = Auth.currentUser();
-      if ($scope.currentUser) {
-        $scope.currentUserFirstName = $scope.currentUser._doc.name.split(' ')[0]
-          // Only allow user to see the sign in page if not currently signed in
-        // if ($location.path() === '/') {
-        //   $scope.location = '/home';
-        //   $location.path('/home')
-        // }
-      }
+  $rootScope.currentUser = Auth.currentUser();
+  if ($rootScope.currentUser) {
+    $rootScope.currentUser.firstName = $scope.currentUser._doc.name.split(' ')[0];
+    $rootScope.currentUser.isAdmin = $scope.currentUser._doc.accountType === 'Admin' ? true : false;
+  }
 
-  console.log('$scope.location: ', $scope.location);
-  console.log('$rootScope.location: ', $rootScope.location);
-  // $scope.location = $location.path()
+  $scope.isLoggedIn = function() {
+    return Auth.isLoggedIn();
+  }
+  $scope.Auth = Auth;
+  $scope.getCurrentUserFirstName = function() {
+    if ($location.path() !== '/' ) {
+    var currentUser = Auth.currentUser();
+    return currentUser._doc.name.split(' ')[0];
+  } else {
+    return null
+  }
+}
+  // if ($scope.currentUser) {
+  //   $scope.currentUserFirstName = $scope.currentUser._doc.name.split(' ')[0]
+  //       // Only allow user to see the sign in page if not currently signed in
+  //     // if ($location.path() === '/') {
+  //     //   $scope.location = '/home';
+  //     //   $location.path('/home')
+  //     // }
+  //   }
 
   $scope.logout = function() {
     Auth.removeToken();
-    console.log('My token:', Auth.getToken());
     $scope.location = '/'
     $location.path('/');
-  }
-
-  $scope.isAdmin = function(user){
-    if (user) {
-      if (user._doc.accountType === 'Admin') {
-        return true;
-      }
-    }
-    return false;
   }
 
   $scope.userSignup = function() {
@@ -166,19 +161,24 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
 
   $scope.userLogin = function() {
     $http.post('/api/auth', $scope.user).then(function success(res) {
-      Auth.saveToken(res.data.token);
-      console.log('currentUser Before: ', $scope.currentUser);
-      $scope.currentUser = Auth.currentUser();
-      if ($scope.currentUser) {
-        $scope.currentUserFirstName = $scope.currentUser._doc.name.split(' ')[0]
-          // Only allow user to see the sign in page if not currently signed in
-        // if ($location.path() === '/') {
-        //   $scope.location = '/home';
-        //   $location.path('/home')
-        // }
+      console.log('login res: ', res)
+      if (res.data.user.accountStatus === 'Active') {
+        Auth.saveToken(res.data.token);
+        $rootScope.currentUser = Auth.currentUser();
+        $rootScope.currentUser.firstName = $scope.currentUser._doc.name.split(' ')[0]
+        $rootScope.currentUser.isAdmin = $scope.currentUser._doc.accountType === 'Admin' ? true : false;
+            // Only allow user to see the sign in page if not currently signed in
+          // if ($location.path() === '/') {
+          //   $scope.location = '/home';
+          //   $location.path('/home')
+          // }
+        $location.path('/profile/workouts');
+      } else {
+        console.log('login error: account inactive');
+        // !!! Insert flash alert for inactive account
       }
-      console.log('currentUser After: ', $scope.currentUser);
-      $location.path('/profile/workouts');
+      
+      
     }, function error(res) {
       console.log(res);
     });
@@ -194,10 +194,10 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
   $scope.users = [];
 
   User.query(function success(data) {
-      console.log(data);
+      console.log('users: ',data);
       $scope.users = data;
     }, function error(data) {
-      console.log(data);
+      console.log('Users error: ', data);
     });
   Workout.query(function success(data) {
       console.log('workouts: ', data);
@@ -205,7 +205,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
       return workout.userId === 'template';
     });
     }, function error(data) {
-      console.log(data);
+      console.log('Workouts error: ', data);
     });
 
 }])
@@ -214,14 +214,14 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
   $scope.exercises = [];
 
   Exercise.query(function success(data) {
-      console.log(data);
+      console.log('Exercise data: ',data);
       $scope.exercises = data;
   })
   Workout.query(function success(data) {
-      console.log('workouts: ', data);
+      console.log('Workouts data: ', data);
       $scope.workouts = data;
     }, function error(data) {
-      console.log(data);
+      console.log('Workouts error: ',data);
     });
 
   $scope.isTemplate = function(workout) {
@@ -284,7 +284,6 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
 }])
 
 .controller('AdminWorkoutNewCtrl', ['$scope', 'Auth', 'User', 'Exercise', 'Workout', '$http', 'Cache', '$location', function($scope, Auth, User, Exercise, Workout, $http, Cache, $location) {
-  $scope.currentUser = Auth.currentUser();
 
   Exercise.query(function success(data) {
       console.log(data);
@@ -419,19 +418,16 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
   $scope.sortReverse  = false;  // set the default sort order
   $scope.searchUsers   = '';     // set the default search/filter term
 
-  $scope.primaryGymExpanded = false;
-
-  $scope.expanded = function(type) {
-    if (type == 'gym') {
-      $scope.primaryGymExpanded = !$scope.primaryGymExpanded;
-    } else { console.log('Ruh roh!');}
-  }
 }])
 
-.controller('ProfileCtrl', ['$scope', 'Auth', 'User', '$http', '$location', '$rootScope', '$stateParams',
-                    function($scope, Auth, User, $http, $location, $rootScope, $stateParams) {
-  $scope.currentUser = Auth.currentUser();
-  console.log('currentUser: ', $scope.currentUser);
+.controller('ProfileCtrl',
+  ['$scope', 'Auth', 'User', '$http', '$location', '$rootScope', '$stateParams',
+  function($scope, Auth, User, $http, $location, $rootScope, $stateParams) {
+
+  $scope.primaryGymExpanded = false;
+
+  $scope.Auth = Auth;
+  console.log('currentUser: ', $rootScope.currentUser);
   $scope.profile = {
       "_id": '',
       "name": '',
@@ -442,14 +438,14 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
       "heightFeet": '',
       "heightInches": '',
       "weight": '',
-      "accountType": ''
+      "accountType": '',
+      "accountStatus": ''
     }
 
   var userId = '';
   var currentLocation = $rootScope.location.split('/')[1]
-  console.log('currentUser: ', $scope.currentUser);
   if (currentLocation === 'profile') {
-    userId = $scope.currentUser._doc._id
+    userId = $rootScope.currentUser._doc._id
   } else {
     userId = $stateParams.id
   }
@@ -470,7 +466,7 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
       "accountType": data.accountType,
       "accountStatus": data.accountStatus
     }
-    console.log('currentUser: ', $scope.profile);
+    console.log('currentUser profile: ', $scope.profile);
   }, function error(data) {
     console.log(data);
   });
@@ -490,31 +486,25 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
       console.log(data);
     });
   }
-
-  $scope.primaryGymExpanded = false;
-
-  $scope.expanded = function(type) {
-    if (type == 'gym') {
-      $scope.primaryGymExpanded = !$scope.primaryGymExpanded;
-    } else { console.log('Ruh roh!');}
-  }
 }])
 
-.controller('WorkoutCtrl', ['$scope', 'Auth', 'User', 'Exercise', 'Workout', '$http', '$location', 'moment', function($scope, Auth, User, Exercise, Workout, $http, $location, moment) {
-  $scope.currentUser = Auth.currentUser();
-  console.log('currentUser: ', $scope.currentUser);
+.controller('WorkoutCtrl',
+  ['$scope', 'Workout', '$http', '$location', 'moment', '$rootScope',
+  function($scope, Workout, $http, $location, moment, $rootScope) {
+  
+  console.log('currentUser: ', $rootScope.currentUser);
 
-  Exercise.query(function success(data) {
-      console.log('exercises: ', data);
-      $scope.exercises = data;
-  })
+  // Exercise.query(function success(data) {
+  //     console.log('exercises: ', data);
+  //     $scope.exercises = data;
+  // })
   $scope.workouts
   Workout.query(function success(data) {
     console.log('workouts: ', data);
-    console.log('currentUser workout load: ', $scope.currentUser)
+    console.log('currentUser workout load: ', $rootScope.currentUser)
     // $scope.workouts = data;
     $scope.workouts = data.filter(function (workout) {
-      return workout.userId === $scope.currentUser._doc._id;
+      return workout.userId === $rootScope.currentUser._doc._id;
     })
   });
   console.log('workouts end result: ', $scope.workouts);
@@ -538,47 +528,30 @@ angular.module('PersonalTrainerCtrls', ['PersonalTrainerServices', 'angularMomen
 
     $scope.upcomingExpanded = true;
     $scope.pastExpanded = false;
-
-    $scope.expanded = function(type) {
-      if (type == 'upcoming') {
-        $scope.upcomingExpanded = !$scope.upcomingExpanded;
-      } else if (type == 'past') {
-        $scope.pastExpanded = !$scope.pastExpanded;
-      } else { console.log('Ruh roh!');}
-    }
 }])
 
 .controller('WorkoutShowCtrl',
-  ['$scope', 'Auth', 'User', 'Exercise', 'Workout', '$stateParams', '$http', '$location',
+          ['$scope', 'Exercise', 'Workout', '$stateParams', '$http', '$location',
   function($scope, Auth, User, Exercise, Workout, $stateParams, $http, $location) {
-    $scope.currentUser = Auth.currentUser();
+
+    $scope.exercises = {};
 
     Exercise.query(function success(data) {
         console.log(data);
-        $scope.exercises = data;
+        for (var i = 0; i < data.length; i++) {
+          $scope.exercises[data[i]._id] = {
+            'name': data[i].name,
+            'description': data[i].description,
+            'muscleGroups': data[i].muscleGroups,
+            'images': data[i].images,
+            'video': data[i].video            
+        }
+      }
+      console.log('exercises: ', $scope.exercises);
     })
     $scope.warmupExpanded = false;
     $scope.workoutExpanded = false;
     $scope.cooldownExpanded = false;
-
-    $scope.expanded = function(type) {
-      if (type == 'warmup') {
-        $scope.warmupExpanded = !$scope.warmupExpanded;
-      } else if (type == 'workout') {
-        $scope.workoutExpanded = !$scope.workoutExpanded;
-      } else if (type === 'cooldown') {
-        $scope.cooldownExpanded = !$scope.cooldownExpanded;
-      } else { console.log('Ruh roh!');}
-    }
-    $scope.exerciseIndex = function(exercise) {
-      console.log('exercise: ', exercise);
-      var index = '';
-      index = $scope.exercises.map(function(x) {return x._id; }).indexOf(exercise.exerciseId);
-      // target = $scope.exercises.filter(function (cooldown) {
-      //   return exercise.exerciseId === cooldown._id ;
-      // });
-      return index
-      }
 
     Workout.get({id: $stateParams.id}, function success(data) {
       console.log('workout data: ', data)

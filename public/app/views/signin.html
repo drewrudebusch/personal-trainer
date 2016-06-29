@@ -54,7 +54,7 @@
       <div role="tabpanel" class="tab-pane active col-sm-12" id="login">
         <form ng-submit="userLogin()">
           <div class="form-group">
-            <input type="email" class="form-control" id="email" placeholder="email" ng-model="user.email">
+            <input type="email" class="form-control" id="email" placeholder="email" ng-model="user.email" autofocus>
           </div>
           <div class="form-group">
             <input type="password" class="form-control" id="password" placeholder="password" ng-model="user.password">
@@ -65,7 +65,7 @@
       <div role="tabpanel" class="tab-pane  col-sm-12" id="signup">
         <form ng-submit="userSignup()">
           <div class="form-group">
-            <input type="name" class="form-control" id="name" placeholder="name" ng-model="user.name">
+            <input type="name" class="form-control" id="name" placeholder="name" ng-model="user.name" >
           </div>
           <div class="form-group">
             <input type="email" class="form-control" id="email" placeholder="email" ng-model="user.email">

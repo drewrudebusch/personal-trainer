@@ -10,12 +10,11 @@
        aria-multiselectable="true">
     <a class="collapsed" role="button" data-toggle="collapse"
        data-parent="#workoutAccordion" data-target="#collapseWarmup"
-       aria-expanded="false" aria-controls="collapseWarmup" ng-show="workout.warmups.length > 0"
-       ng-click="expanded('warmup')">
+       aria-expanded="false" aria-controls="collapseWarmup" ng-show="workout.warmups.length > 0" ng-click="warmupExpanded = !warmupExpanded">
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne">
           <h4 class="panel-title">
-            <span ng-class="(warmupExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Warmup
+            <span ng-class="warmupExpanded ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Warmup
           </h4>
         </div>
       </div>
@@ -23,9 +22,9 @@
     <div id="collapseWarmup" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <div class="form-group" ng-repeat="warmup in workout.warmups">
-          <img class="myImgThumbnail" ng-src="{{ exercises[exerciseIndex(warmup)].images[0].link }}"> 
+          <img class="myImgThumbnail" ng-src="{{ exercises[warmup.exerciseId].images[0].link }}"> 
           <div style="display: inline-block; padding-left: 10px;">
-            <h2>{{ exercises[exerciseIndex(warmup)].name}}</h2>
+            <h2>{{ exercises[warmup.exerciseId].name}}</h2>
             <p><span> Sets: {{warmup.setsGoal}}</span> &nbsp; <span>Reps: {{warmup.repsGoal}}</span></p>
           </div>
         </div>        
@@ -35,9 +34,9 @@
        data-parent="#workoutAccordion" data-target="#collapseWorkout"
        aria-expanded="false" aria-controls="collapseWorkout" ng-show="workout.workouts.length > 0"> 
       <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingTwo" ng-click="expanded('workout')">
+        <div class="panel-heading" role="tab" id="headingTwo" ng-click="workoutExpanded = !workoutExpanded">
           <h4 class="panel-title">
-            <span ng-class="(workoutExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Workout
+            <span ng-class="workoutExpanded ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Workout
           </h4>
         </div>
       </div>
@@ -45,9 +44,9 @@
     <div id="collapseWorkout" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
         <div class="form-group" ng-repeat="workout in workout.workouts">
-          <img class="myImgThumbnail" ng-src="{{ exercises[exerciseIndex(workout)].images[0].link }}"> 
+          <img class="myImgThumbnail" ng-src="{{ exercises[workout.exerciseId].images[0].link }}"> 
           <div style="display: inline-block; padding-left: 10px;">
-            <h2>{{ exercises[exerciseIndex(workout)].name}}</h2>
+            <h2>{{ exercises[workout.exerciseId].name}}</h2>
             <p><span> Sets: {{workout.setsGoal}}</span> &nbsp; <span>Reps: {{workout.repsGoal}}</span></p>
           </div>
         </div>     
@@ -56,11 +55,11 @@
     <a class="collapsed" role="button" data-toggle="collapse"
        data-parent="#workoutAccordion" data-target="#collapseCooldown"
        aria-expanded="false" aria-controls="collapseCooldown" ng-show="workout.cooldowns.length"
-       ng-click="expanded('cooldown')">
+       ng-click="cooldownExpanded = !cooldownExpanded">
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
           <h4 class="panel-title">
-            <span ng-class="(cooldownExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span>Cooldown
+            <span ng-class="cooldownExpanded ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span>Cooldown
           </h4>
         </div>
       </div>
@@ -68,9 +67,9 @@
     <div id="collapseCooldown" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
         <div class="form-group" ng-repeat="cooldown in workout.cooldowns">
-          <img class="myImgThumbnail" ng-src="{{ exercises[exerciseIndex(cooldown)].images[0].link }}">  <!-- exercises[0].images[0].link -->
+          <img class="myImgThumbnail" ng-src="{{ exercises[cooldown.exerciseId].images[0].link }}">
           <div style="display: inline-block; padding-left: 10px;">
-            <h2>{{ exercises[exerciseIndex(cooldown)].name}}</h2>
+            <h2>{{ exercises[cooldown.exerciseId].name}}</h2>
             <p><span> Sets: {{cooldown.setsGoal}}</span> &nbsp; <span>Reps: {{cooldown.repsGoal}}</span></p>
           </div>
         </div>

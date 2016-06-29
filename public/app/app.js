@@ -74,7 +74,7 @@ app.config([
   })
   .state('adminUserDetail', {
     url: '/admin/users/view/:id',
-    templateUrl: 'app/views/adminUserDetail.html',
+    templateUrl: 'app/views/profile.html',
     controller: 'ProfileCtrl'
   })
   .state('profile', {

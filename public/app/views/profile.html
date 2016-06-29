@@ -39,14 +39,24 @@
           <strong>Weight: </strong> {{ profile.weight }} lbs.
         </div>
       </div>
-        <!-- <p class="help-block">Example block-level help text here.</p> -->
+      <div ng-show="currentUser.isAdmin">
+      <div class="form-group">
+        <strong>Account Type: </strong> {{ profile.accountType }}
+      </div>
+    </div>
+    <div ng-show="currentUser.isAdmin">
+      <div class="form-group">
+        <strong>Account Status: </strong> {{ profile.accountStatus }}
+      </div>
+    </div>
+
     </div>
     <div class="panel-group" role="tablist" aria-multiselectable="true">
       <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#userProfileGym" aria-expanded="true" aria-controls="collapseOne">
         <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingOne" ng-click="expanded('gym')">
+          <div class="panel-heading" role="tab" id="headingOne" ng-click="primaryGymExpanded = !primaryGymExpanded">
             <h4 class="panel-title">
-              <span ng-class="(primaryGymExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> <strong>Primary Gym:</strong> Rain City Fit
+              <span ng-class="primaryGymExpanded ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> <strong>Primary Gym:</strong> Rain City Fit
             </h4>
           </div>
         </div>

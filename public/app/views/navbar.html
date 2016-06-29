@@ -6,7 +6,7 @@
 
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
           <span class="sr-only">Toggle navigation</span>
-          <span  id="username" ng-show="Auth.isLoggedIn()"> Hi, {{ currentUserFirstName }} &nbsp; <span style="font-size: 14px;" class="glyphicon glyphicon-menu-hamburger"></span> </span>
+          <span  id="username" ng-show="isLoggedIn()"> Hi, {{ currentUser.firstName}} &nbsp; <span style="font-size: 14px;" class="glyphicon glyphicon-menu-hamburger"></span> </span>
         </button>
         <a class="navbar-brand" href="/profile/workouts"> <strong> Personal Trainer </strong></a>
       </div>
@@ -16,27 +16,23 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/profile/workouts" 
                class="nav-item"
-               ng-show="Auth.isLoggedIn()"
                data-toggle="collapse"
                data-target=".navbar-collapse.in">Workouts</a></li>
         <li><a href="/exercises" 
                class="nav-item"
-               ng-show="Auth.isLoggedIn()"
                data-toggle="collapse"
                data-target=".navbar-collapse.in">Exercises</a></li>
         <li><a href="/profile" 
                class="nav-item"
-               ng-show="Auth.isLoggedIn()"
                data-toggle="collapse"
                data-target=".navbar-collapse.in">Profile</a></li>
         <li><a href="" 
                class="nav-item"
                ng-click="logout()"
-               ng-show="Auth.isLoggedIn()"
                data-toggle="collapse"
                data-target=".navbar-collapse.in">Logout</a></li>
         <div role="separator" 
-             ng-show="isAdmin(currentUser)"
+             ng-show="currentUser.isAdmin"
              style="margin-top:5px;
                     margin-bottom:5px;
                     height:1px;
@@ -45,9 +41,19 @@
                     clear: both;"></div>
         <li><a href="/admin" 
                class="nav-item"
-               ng-show="isAdmin(currentUser)"
+               ng-show="currentUser.isAdmin"
                data-toggle="collapse"
-               data-target=".navbar-collapse.in">Admin</a></li>
+               data-target=".navbar-collapse.in"><strong>Admin Home</strong></a></li>
+        <li><a href="/admin/users" 
+               class="nav-item"
+               ng-show="currentUser.isAdmin"
+               data-toggle="collapse"
+               data-target=".navbar-collapse.in">Users</a></li>
+        <li><a href="/admin/workouts" 
+               class="nav-item"
+               ng-show="currentUser.isAdmin"
+               data-toggle="collapse"
+               data-target=".navbar-collapse.in">Workouts</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
     </div>

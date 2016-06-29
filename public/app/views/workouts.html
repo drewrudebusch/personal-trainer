@@ -4,9 +4,9 @@
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
         <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingOne" ng-click="expanded('upcoming')">
+          <div class="panel-heading" role="tab" id="headingOne" ng-click="upcomingExpanded = !upcomingExpanded">
             <h4 class="panel-title">
-            <span ng-class="(upcomingExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Upcoming Workouts
+            <span ng-class="upcomingExpanded ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Upcoming Workouts
             </h4>
           </div>
         </div>
@@ -20,9 +20,9 @@
       </div>
       <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
       <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingTwo" ng-click="expanded('past')">
+        <div class="panel-heading" role="tab" id="headingTwo" ng-click="pastExpanded = !pastExpanded">
           <h4 class="panel-title">
-            <span ng-class="(pastExpanded) ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Past Workouts
+            <span ng-class="pastExpanded ? ['glyphicon-chevron-up','glyphicon'] : ['glyphicon-chevron-down', 'glyphicon']"></span> Past Workouts
           </h4>
         </div>
       </div>

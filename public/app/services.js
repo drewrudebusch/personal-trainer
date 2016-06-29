@@ -60,6 +60,12 @@ angular.module('PersonalTrainerServices', ['ngResource'])
           return false;
         }
       }
+    },
+    isAdmin: function(user){
+      console.log("isadmin: ", user);
+      if (user._doc.accountType === 'Admin') {
+        return true;
+      } return false;
     }
   }
 }])
